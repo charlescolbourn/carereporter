@@ -1,0 +1,13 @@
+List of activities
+==================
+
+client select
+client create/edit
+diary
+    day
+    week
+    (month)
+    (year)
+event
+    create/edit
+    do
