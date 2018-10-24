@@ -1,0 +1,35 @@
+Features/Stories planned
+========================
+
+model: client
+model: event
+
+
+view: create a client
+    Preferred name
+    photo
+    interests
+        (i) No facility for legal name/address/age etc is provided here. The application is to report back events, not store personal data. GDPR!
+
+model: default events from a properties file
+
+
+view: see clients diary for today
+    scrolling list
+        show hour only
+        icon per event in correct order (up to 3, with a ... icon third if more than 3)
+
+view: create an event in todays diary
+    time
+    type of event
+        presupplied list, story to create more later
+    did the event go ok? y/n/don't know
+    name of event (default from type)
+    time taken (default from type)
+
+view: select a client from a list
+    photo
+    prefname
+
+view: edit a clients details
+
