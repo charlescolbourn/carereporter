@@ -33,3 +33,6 @@ view: select a client from a list
 
 view: edit a clients details
 
+
+connectivity: post events to a facebook page
+
