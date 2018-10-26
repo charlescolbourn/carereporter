@@ -36,3 +36,5 @@ view: edit a clients details
 
 connectivity: post events to a facebook page
 
+event should contain a freetext note (defaults from event type) and List<Photo> to upload to feed
+
