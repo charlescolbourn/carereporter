@@ -6,7 +6,10 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.model;
 
-class EventType
-{
+import java.io.Serializable;
 
+class EventType implements Serializable
+{
+    private EventType parentType;
+    //Icon
 }

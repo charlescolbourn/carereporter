@@ -6,7 +6,9 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.model;
 
-class Photo
+import java.io.Serializable;
+
+class Photo implements Serializable
 {
     private String name;
 }
