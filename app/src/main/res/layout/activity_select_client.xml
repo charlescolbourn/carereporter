@@ -4,12 +4,44 @@
     android:layout_height="match_parent"
     tools:context="net.colbourn.carepriorities.ui.SelectClient"
     android:background="#ffffff">
+
+    <!--LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/HeaderBar"
+
+        android:elevation="4dp"
+        /-->
+
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ListView
+
+        <TextView
+            android:id="@+id/SelectClientHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listOfClients" />
+            android:text="Select Client"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textSize="30sp" />
+
+        <ListView
+            android:id="@+id/listOfClients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+        </ListView>
     </TableLayout>
+    <!--/LinearLayout-->
+
+
 </FrameLayout>
