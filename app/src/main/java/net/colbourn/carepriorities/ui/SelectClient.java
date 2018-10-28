@@ -47,13 +47,13 @@ public class SelectClient extends AppCompatActivity {
 //            }
 //        });
 
-//        getSupportActionBar().
-        View selectClientView = getLayoutInflater().inflate(R.layout.activity_select_client, null);
-        Toolbar myToolbar = (Toolbar) selectClientView.findViewById(R.id.select_client_toolbar);
-        setSupportActionBar(myToolbar);
-        getMenuInflater().inflate(R.menu.menu_select_client, myToolbar.getMenu());
 
-        showListOfClients();
+//        View v = getLayoutInflater().inflate(R.layout.activity_scrolling,null);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.select_client_toolbar);
+        setSupportActionBar(myToolbar);
+
+
+//        showListOfClients(); // list size forces toolbar etc off the screen
     }
 
     private List<Person> getAllClients() {

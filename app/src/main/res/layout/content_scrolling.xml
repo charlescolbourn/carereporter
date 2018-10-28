@@ -8,6 +8,7 @@
     tools:context=".ui.SelectClient"
     tools:showIn="@layout/activity_scrolling">
 
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
