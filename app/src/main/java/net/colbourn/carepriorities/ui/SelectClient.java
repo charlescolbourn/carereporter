@@ -35,7 +35,7 @@ public class SelectClient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_clientselect);
 
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -53,15 +53,16 @@ public class SelectClient extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 
-//        showListOfClients(); // list size forces toolbar etc off the screen
+        showListOfClients(); // list size forces toolbar etc off the screen
     }
 
     private List<Person> getAllClients() {
         List<Person> retlist = new ArrayList<>();
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             retlist.add(new Client("dumpling the cat " + i));
         }
+
         ///return new ArrayList<Person>(Arrays.asList(new Client("dumpling the cat")));
         return retlist;
     }
@@ -80,7 +81,11 @@ public class SelectClient extends AppCompatActivity {
 
     private void showListOfClients()
     {
-        setContentView(R.layout.activity_select_client);
+
+        /* scrolling list fills the screen no matter what. Create a separate view that shows up to 5 clients in a more conventional view, then
+        only use the massive scroll if needed.
+         */
+
 
         final List<Person> clients = getAllClients();
 
