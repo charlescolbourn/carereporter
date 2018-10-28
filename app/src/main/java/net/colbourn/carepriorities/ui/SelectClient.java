@@ -36,8 +36,7 @@ public class SelectClient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +48,11 @@ public class SelectClient extends AppCompatActivity {
 //        });
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        View selectClientView = getLayoutInflater().inflate(R.layout.activity_select_client, null);
+        Toolbar myToolbar = (Toolbar) selectClientView.findViewById(R.id.select_client_toolbar);
+        setSupportActionBar(myToolbar);
+
+
 
         showListOfClients();
     }
@@ -144,30 +148,21 @@ public class SelectClient extends AppCompatActivity {
 //                intent = new Intent(this,EditClient.class);
 //                startActivity(intent);
                 return true;
-            case R.id.help:
-//                intent = new Intent(this,HelpActivity.class);
-//                intent.putExtra("HELP_TITLE",R.string.help_selectclient_title);
-//                intent.putExtra("HELP_TEXT",R.string.help_selectclient_text);
-                startActivity(intent);
-                return true;
-            case R.id.setupapplication:
-//                intent = new Intent(this,Setup.class);
+//            case R.id.help:
+////                intent = new Intent(this,HelpActivity.class);
+////                intent.putExtra("HELP_TITLE",R.string.help_selectclient_title);
+////                intent.putExtra("HELP_TEXT",R.string.help_selectclient_text);
 //                startActivity(intent);
-                return true;
+//                return true;
+//            case R.id.setupapplication:
+////                intent = new Intent(this,Setup.class);
+////                startActivity(intent);
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_select_client, menu);
-        return true;
-
-    }
 
 }
