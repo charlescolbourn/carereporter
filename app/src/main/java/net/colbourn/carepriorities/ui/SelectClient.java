@@ -52,7 +52,7 @@ public class SelectClient extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) selectClientView.findViewById(R.id.select_client_toolbar);
         setSupportActionBar(myToolbar);
 
-
+        getSupportActionBar().setTitle("badger");
 
         showListOfClients();
     }
