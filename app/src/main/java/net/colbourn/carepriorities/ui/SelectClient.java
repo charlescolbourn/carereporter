@@ -47,12 +47,11 @@ public class SelectClient extends AppCompatActivity {
 //            }
 //        });
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().
         View selectClientView = getLayoutInflater().inflate(R.layout.activity_select_client, null);
         Toolbar myToolbar = (Toolbar) selectClientView.findViewById(R.id.select_client_toolbar);
         setSupportActionBar(myToolbar);
-
-        getSupportActionBar().setTitle("badger");
+        getMenuInflater().inflate(R.menu.menu_select_client, myToolbar.getMenu());
 
         showListOfClients();
     }
@@ -163,6 +162,11 @@ public class SelectClient extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_select_client, menu);
+        return true;
+    }
 
 }
