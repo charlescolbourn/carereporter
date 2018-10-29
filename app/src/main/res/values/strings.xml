@@ -5,4 +5,5 @@
     <string name="setupapplication">Configure application</string>
     <string name="createclient">Create Client</string>
     <string name="help">Help</string>
+    <string name="title_activity_diary">DiaryActivity</string>
 </resources>

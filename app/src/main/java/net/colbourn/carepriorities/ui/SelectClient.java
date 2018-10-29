@@ -60,27 +60,30 @@ public class SelectClient extends AppCompatActivity {
         return retList;
     }
 
-
-
-    private void showListOfClients()
+    private SimpleAdapter adaptPersonToListImageTextView(List<Person> people)
     {
-        final List<Person> clients = getAllClients();
-        List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
-
-        for (Person p: clients) {
+        List<HashMap<String,String>> pList = new ArrayList<>();
+        for (Person p: people) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", p.getName());
             hm.put("listview_description", "");
             hm.put("listview_image", Integer.toString(R.drawable.dumpling)); // quick demo hack
-            aList.add(hm);
+            pList.add(hm);
         }
 
         String[] from = {"listview_image", "listview_title", "listview_description"};
         int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.listview_textandphoto, from, to);
+        return new SimpleAdapter(getBaseContext(), pList, R.layout.listview_textandphoto, from, to);
+
+    }
+
+
+    private void showListOfClients()
+    {
+        List<Person> clients = getAllClients();
         ListView clientListView = (ListView) findViewById(R.id.listOfClients);
-        clientListView.setAdapter(simpleAdapter);
+        clientListView.setAdapter(adaptPersonToListImageTextView(clients));
         clientListView.setClickable(true);
         clientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,10 +91,15 @@ public class SelectClient extends AppCompatActivity {
                 Log.v(L, "client at pos " + i);
                 HashMap<String,String> p = (HashMap<String,String>) clientListView.getItemAtPosition(i);
                 Log.v(L, "Client  " + p.get("listview_title"));
-//                openDiary(clients.get(i));
-                //finish();
+                openDiary(clients.get(i));
             }
         });
+    }
+
+    private void openDiary(Person client)
+    {
+        Intent intent = new Intent(this,DiaryActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -99,8 +107,8 @@ public class SelectClient extends AppCompatActivity {
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.createclient:
-//                intent = new Intent(this,EditClient.class);
-//                startActivity(intent);
+                intent = new Intent(this,EditClient.class);
+                startActivity(intent);
                 return true;
 //            case R.id.help:
 ////                intent = new Intent(this,HelpActivity.class);
