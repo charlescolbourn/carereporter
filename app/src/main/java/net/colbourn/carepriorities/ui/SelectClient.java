@@ -36,24 +36,9 @@ public class SelectClient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clientselect);
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-
-//        View v = getLayoutInflater().inflate(R.layout.activity_scrolling,null);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.select_client_toolbar);
         setSupportActionBar(myToolbar);
-
-
-        showListOfClients(); // list size forces toolbar etc off the screen
+        showListOfClients();
     }
 
     private List<Person> getAllClients() {
@@ -62,8 +47,6 @@ public class SelectClient extends AppCompatActivity {
         {
             retlist.add(new Client("dumpling the cat " + i));
         }
-
-        ///return new ArrayList<Person>(Arrays.asList(new Client("dumpling the cat")));
         return retlist;
     }
 
@@ -81,15 +64,7 @@ public class SelectClient extends AppCompatActivity {
 
     private void showListOfClients()
     {
-
-        /* scrolling list fills the screen no matter what. Create a separate view that shows up to 5 clients in a more conventional view, then
-        only use the massive scroll if needed.
-         */
-
-
         final List<Person> clients = getAllClients();
-
-
         List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
 
         for (Person p: clients) {
@@ -118,31 +93,6 @@ public class SelectClient extends AppCompatActivity {
             }
         });
     }
-
-    //TODO - lifted this method from some old code. Clean up
-//    private void showListOfClients(){
-//        final ListView view = (ListView) findViewById(R.id.listOfClients);
-
-//
-//
-//        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientnames);
-//        view.setAdapter(myarrayAdapter);
-//        view.setTextFilterEnabled(true);
-//
-//
-//
-//            private void openDiary(Person person) {
-////                Intent intent = new Intent(SelectClient.this,ClientDiary.class);
-////                Log.v(SelectClient.class.toString(),"Selecting user " + person.displayname);
-////                Log.v(SelectClient.class.toString(),"uid " + ( person.id != null ? "present" + person.id.toString() : "absent"));
-////                intent.putExtra("CLIENT_ID", person.id);
-////                startActivity(intent);
-//            }
-//        });
-//
-//    }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
