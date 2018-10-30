@@ -36,24 +36,9 @@ public class SelectClient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clientselect);
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-
-//        View v = getLayoutInflater().inflate(R.layout.activity_scrolling,null);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.select_client_toolbar);
         setSupportActionBar(myToolbar);
-
-
-        showListOfClients(); // list size forces toolbar etc off the screen
+        showListOfClients();
     }
 
     private List<Person> getAllClients() {
@@ -62,8 +47,6 @@ public class SelectClient extends AppCompatActivity {
         {
             retlist.add(new Client("dumpling the cat " + i));
         }
-
-        ///return new ArrayList<Person>(Arrays.asList(new Client("dumpling the cat")));
         return retlist;
     }
 
@@ -77,35 +60,30 @@ public class SelectClient extends AppCompatActivity {
         return retList;
     }
 
-
-
-    private void showListOfClients()
+    private SimpleAdapter adaptPersonToListImageTextView(List<Person> people)
     {
-
-        /* scrolling list fills the screen no matter what. Create a separate view that shows up to 5 clients in a more conventional view, then
-        only use the massive scroll if needed.
-         */
-
-
-        final List<Person> clients = getAllClients();
-
-
-        List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
-
-        for (Person p: clients) {
+        List<HashMap<String,String>> pList = new ArrayList<>();
+        for (Person p: people) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", p.getName());
             hm.put("listview_description", "");
             hm.put("listview_image", Integer.toString(R.drawable.dumpling)); // quick demo hack
-            aList.add(hm);
+            pList.add(hm);
         }
 
         String[] from = {"listview_image", "listview_title", "listview_description"};
         int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.listview_textandphoto, from, to);
+        return new SimpleAdapter(getBaseContext(), pList, R.layout.listview_textandphoto, from, to);
+
+    }
+
+
+    private void showListOfClients()
+    {
+        List<Person> clients = getAllClients();
         ListView clientListView = (ListView) findViewById(R.id.listOfClients);
-        clientListView.setAdapter(simpleAdapter);
+        clientListView.setAdapter(adaptPersonToListImageTextView(clients));
         clientListView.setClickable(true);
         clientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -113,44 +91,24 @@ public class SelectClient extends AppCompatActivity {
                 Log.v(L, "client at pos " + i);
                 HashMap<String,String> p = (HashMap<String,String>) clientListView.getItemAtPosition(i);
                 Log.v(L, "Client  " + p.get("listview_title"));
-//                openDiary(clients.get(i));
-                //finish();
+                openDiary(clients.get(i));
             }
         });
     }
 
-    //TODO - lifted this method from some old code. Clean up
-//    private void showListOfClients(){
-//        final ListView view = (ListView) findViewById(R.id.listOfClients);
-
-//
-//
-//        ArrayAdapter<String> myarrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientnames);
-//        view.setAdapter(myarrayAdapter);
-//        view.setTextFilterEnabled(true);
-//
-//
-//
-//            private void openDiary(Person person) {
-////                Intent intent = new Intent(SelectClient.this,ClientDiary.class);
-////                Log.v(SelectClient.class.toString(),"Selecting user " + person.displayname);
-////                Log.v(SelectClient.class.toString(),"uid " + ( person.id != null ? "present" + person.id.toString() : "absent"));
-////                intent.putExtra("CLIENT_ID", person.id);
-////                startActivity(intent);
-//            }
-//        });
-//
-//    }
-
-
+    private void openDiary(Person client)
+    {
+        Intent intent = new Intent(this,DiaryActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.createclient:
-//                intent = new Intent(this,EditClient.class);
-//                startActivity(intent);
+                intent = new Intent(this,EditClient.class);
+                startActivity(intent);
                 return true;
 //            case R.id.help:
 ////                intent = new Intent(this,HelpActivity.class);
