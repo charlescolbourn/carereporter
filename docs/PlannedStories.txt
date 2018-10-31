@@ -8,10 +8,14 @@ model: event
 view: create a client
     Preferred name
     photo
+    https://www.journaldev.com/13270/android-capture-image-camera-gallery
     interests
         (i) No facility for legal name/address/age etc is provided here. The application is to report back events, not store personal data. GDPR!
 
-model: default events from a properties file
+
+
+
+model: default events from a properties file? Probably json to enable depth
 
 
 view: see clients diary for today
@@ -37,4 +41,3 @@ view: edit a clients details
 connectivity: post events to a facebook page
 
 event should contain a freetext note (defaults from event type) and List<Photo> to upload to feed
-
