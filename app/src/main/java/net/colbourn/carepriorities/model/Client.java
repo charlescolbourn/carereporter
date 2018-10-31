@@ -7,7 +7,7 @@
 package net.colbourn.carepriorities.model;
 
 import java.io.Serializable;
-import net.colbourn.carepriorities.model.api.Person;
+import net.colbourn.carepriorities.api.Person;
 
 public class Client implements Person, Serializable
 {
