@@ -12,4 +12,5 @@ class SocialMediaSharingBehaviour implements Serializable
 {
     private Boolean shareable;
     private Boolean autoShare;
+    // TODO this needs more work - should be share/autoshare/prompt
 }
