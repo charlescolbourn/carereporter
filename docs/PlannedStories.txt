@@ -5,6 +5,12 @@ model: client
 model: event
 
 
+plugins using dagger
+	https://tech.just-eat.com/2015/10/26/dependency-injection-on-android/
+
+clientprovider interface, LocalDatabaseBackendClientProvider
+Factory returns a clientprovider. Use dependency injection at compile time (so compile a 'local backed' one for example)
+
 view: create a client
     Preferred name
     photo
