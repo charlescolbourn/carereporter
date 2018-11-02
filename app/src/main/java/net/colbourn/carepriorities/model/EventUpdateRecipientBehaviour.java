@@ -8,7 +8,7 @@ package net.colbourn.carepriorities.model;
 
 import java.io.Serializable;
 
-class SocialMediaSharingBehaviour implements Serializable
+class EventUpdateRecipientBehaviour implements Serializable
 {
     private Boolean shareable;
     private Boolean autoShare;
