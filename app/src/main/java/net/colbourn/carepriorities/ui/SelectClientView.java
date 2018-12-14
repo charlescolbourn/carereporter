@@ -13,17 +13,21 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import net.colbourn.carepriorities.R;
+import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.api.Person;
-import net.colbourn.carepriorities.model.Client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SelectClient extends AppCompatActivity {
+import javax.inject.Inject;
 
-    private static final String L = SelectClient.class.getName();
+public class SelectClientView extends AppCompatActivity {
 
+    private static final String L = SelectClientView.class.getName();
+
+    @Inject
+    private ClientProvider clientProvider;
 
 
     @Override
@@ -36,12 +40,7 @@ public class SelectClient extends AppCompatActivity {
     }
 
     private List<Person> getAllClients() {
-        List<Person> retlist = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
-        {
-            retlist.add(new Client("dumpling the cat " + i));
-        }
-        return retlist;
+        return clientProvider.getAllClients();
     }
 
     private List<String> getClientNames(List<Person> clients)

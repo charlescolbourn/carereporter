@@ -15,6 +15,8 @@ This is a great time to enter an event 'tea and cake', and take a snapshot to go
 
 plugin architecture 
 	* for upload of updates to a backend/social media
+    * use spring for webservices http://projects.spring.io/spring-android/
+
 
 # Get involved
 

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ClientProvider {
 
-    List<Client> getAllClients();
-    Client getClient(String id);
+    List<Person> getAllClients();
+    Person getClient(String id);
 }
