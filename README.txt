@@ -1,6 +1,6 @@
 # CarePriorities
 
-CarePriorities is aimed at users who provide care for others, in their own homes or in a care setting. It's particularly for clients with learning disabilities or cognitive impairments.
+CarePriorities is aimed at users who provide care for others, in their own homes or in a care setting. It's particularly for clients with learning disabilities or cognitive impairments, to help record and report enrichment activities and day to day routine
 
 The idea of carepriorities is to provide a simple phone based UI, to enable carers to record information about clients quickly and easily.
 These updates are intended to feed into a backend (yet to be written), or social media feed, to enable family & friends of the client to get a window into the clients daily life (or to feed into a backend service for care provider organisations to view activity among all their charges). It works something like this:

@@ -9,6 +9,10 @@ package net.colbourn.carepriorities.model;
 import java.io.Serializable;
 import net.colbourn.carepriorities.api.Person;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
+
 @Entity
 public class Client implements Person, Serializable
 {
