@@ -1,15 +1,11 @@
 package net.colbourn.carepriorities;
 
 import net.colbourn.carepriorities.api.ClientProvider;
-import net.colbourn.carepriorities.api.ClientProviderFactory;
-
+import net.colbourn.carepriorities.plugins.LocalDatabaseClientProvider.ClientProviderComponent;
+import net.colbourn.carepriorities.plugins.LocalDatabaseClientProvider.DaggerClientProviderComponent;
 import javax.inject.Inject;
 
-import dagger.Module;
-import dagger.Provides;
-
-
-public class ClientProviderAccessor implements ClientProviderFactory {
+public class ClientProviderAccessor {
 
     @Inject
     ClientProvider clientProvider;
@@ -20,8 +16,6 @@ public class ClientProviderAccessor implements ClientProviderFactory {
                 .build();
         component.inject(this);
     }
-
-
 
     public ClientProvider getClientProvider() {
         return clientProvider;

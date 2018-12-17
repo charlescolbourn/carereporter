@@ -60,7 +60,7 @@ public class SelectClientView extends AppCompatActivity {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", p.getName());
             hm.put("listview_description", "");
-            hm.put("listview_image", Integer.toString(R.drawable.dumpling)); // quick demo hack
+            hm.put("listview_image", p.getPhoto()); // quick demo hack
             pList.add(hm);
         }
 

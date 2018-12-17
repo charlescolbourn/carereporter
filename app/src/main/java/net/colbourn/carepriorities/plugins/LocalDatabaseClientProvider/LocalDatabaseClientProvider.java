@@ -1,4 +1,4 @@
-package net.colbourn.carepriorities;
+package net.colbourn.carepriorities.plugins.LocalDatabaseClientProvider;
 
 import net.colbourn.carepriorities.api.Client;
 import net.colbourn.carepriorities.api.ClientProvider;
