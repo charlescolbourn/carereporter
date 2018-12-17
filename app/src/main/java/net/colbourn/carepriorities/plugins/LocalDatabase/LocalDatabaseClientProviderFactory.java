@@ -1,7 +1,6 @@
-package net.colbourn.carepriorities.plugins.LocalDatabaseClientProvider;
+package net.colbourn.carepriorities.plugins.LocalDatabase;
 
 import net.colbourn.carepriorities.api.ClientProvider;
-import net.colbourn.carepriorities.plugins.LocalDatabaseClientProvider.LocalDatabaseClientProvider;
 
 import javax.inject.Singleton;
 
@@ -9,7 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class LocalDatabaseClientProviderFactory {
+class LocalDatabaseClientProviderFactory {
 
     @Provides
     @Singleton

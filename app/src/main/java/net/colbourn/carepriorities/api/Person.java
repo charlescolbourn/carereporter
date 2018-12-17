@@ -6,4 +6,6 @@ public interface Person {
     String getName();
 
     String getPhoto();
+
+    void setPhoto(String photo);
 }

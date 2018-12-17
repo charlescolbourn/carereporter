@@ -1,4 +1,4 @@
-package net.colbourn.carepriorities.plugins.LocalDatabaseClientProvider;
+package net.colbourn.carepriorities.plugins.LocalDatabase;
 
 import net.colbourn.carepriorities.ClientProviderAccessor;
 import javax.inject.Singleton;

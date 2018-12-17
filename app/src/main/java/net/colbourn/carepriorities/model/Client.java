@@ -16,15 +16,12 @@ import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Transient;
 
 
-//@Entity
+
 public class Client implements Person, Serializable {
-    //    @Id
+
     public long id;
-
     private String preferredName;
-
-    //    @Transient
-    private Photo photo;
+    private String photo;
 
     /**
      * use for testing only
@@ -41,6 +38,12 @@ public class Client implements Person, Serializable {
     @Override
     public String getPhoto() {
         return Integer.toString(R.drawable.dumpling);
+    }
+
+    @Override
+    public void setPhoto(String photo)
+    {
+        this.photo = photo;
     }
 
 }

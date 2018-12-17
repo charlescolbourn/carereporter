@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'net.ltgt.apt-idea' // needed for objectbox on desktop
 apply plugin: 'io.objectbox'
 
 android {

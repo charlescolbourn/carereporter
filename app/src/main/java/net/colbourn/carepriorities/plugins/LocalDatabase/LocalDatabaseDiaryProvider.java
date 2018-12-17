@@ -1,4 +1,4 @@
-package net.colbourn.carepriorities;
+package net.colbourn.carepriorities.plugins.LocalDatabase;
 
 import net.colbourn.carepriorities.api.DiaryProvider;
 
