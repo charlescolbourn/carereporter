@@ -1,6 +1,6 @@
 package net.colbourn.carepriorities.plugins.LocalDatabase;
 
-import net.colbourn.carepriorities.plugins.LocalDatabase.model.MyObjectBox;
+
 import net.colbourn.carepriorities.model.Client;
 import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.api.Person;
@@ -18,10 +18,9 @@ public class LocalDatabaseClientProvider implements ClientProvider
 
     LocalDatabaseClientProvider() //TODO IoC this from the test
     {
-//        BoxStore boxStore = MyObjectBox.builder()
-//                .androidContext(LocalDatabaseClientProvider.this).build();
 
-        BoxStore boxStore = MyObjectBox.builder().name("objectbox-db").build();
+
+        BoxStore boxStore = new LocalDatabaseProvider().getBoxStore();
 
 
         Box<ClientDSO> box = boxStore.boxFor(ClientDSO.class);
