@@ -2,14 +2,18 @@ package net.colbourn.carepriorities;
 
 import net.colbourn.carepriorities.api.ClientProvider;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ClientProviderFactory implements ClientProviderFactoryApi {
+public class ClientProviderFactory {
 
     @Provides
-    ClientProvider getClientProvider() {
+    @Singleton
+    static ClientProvider provide()
+    {
         return new LocalDatabaseClientProvider();
     }
 }
