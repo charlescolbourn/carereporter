@@ -2,10 +2,14 @@ package net.colbourn.carepriorities;
 
 import net.colbourn.carepriorities.api.ClientProvider;
 
-@Deprecated
-public class ClientProviderFactory {
+import dagger.Module;
+import dagger.Provides;
 
+@Module
+public class ClientProviderFactory implements ClientProviderFactoryApi {
+
+    @Provides
     ClientProvider getClientProvider() {
-        return null;
+        return new LocalDatabaseClientProvider();
     }
 }

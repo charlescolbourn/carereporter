@@ -27,7 +27,7 @@ public class SelectClientView extends AppCompatActivity {
     private static final String L = SelectClientView.class.getName();
 
     @Inject
-    private ClientProvider clientProvider;
+    ClientProvider clientProvider;
 
 
     @Override

@@ -11,14 +11,18 @@ import net.colbourn.carepriorities.api.Person;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Transient;
 
 
-@Entity
+//@Entity
 public class Client implements Person, Serializable
 {
-    @Id
+//    @Id
     public long id;
+
     private String preferredName;
+
+//    @Transient
     private Photo photo;
 
     /** use for testing only */

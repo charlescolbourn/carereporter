@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
-@Component
+
 public class LocalDatabaseClientProvider implements ClientProvider {
 
-    public Client getClient(String id){
+    public Person getClient(String id){
         return null;
     }
-
 
     public List<Person> getAllClients(){
         List<Person> retlist = new ArrayList<>();
