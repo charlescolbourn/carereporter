@@ -18,7 +18,7 @@ public class LocalDatabaseClientProvider implements ClientProvider
     Box<ClientDSO> box;
 
 
-    LocalDatabaseClientProvider() //TODO IoC this from the test
+    LocalDatabaseClientProvider()
     {
         BoxStore boxStore = new LocalDatabaseProvider().getBoxStore();
         box = boxStore.boxFor(ClientDSO.class);

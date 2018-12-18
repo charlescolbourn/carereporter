@@ -13,13 +13,17 @@ import java.io.Serializable;
 
 import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 import io.objectbox.converter.PropertyConverter;
 
 @Entity
 public class EventTypeDSO implements Serializable
 {
+    @Id
+    private long id;
+
     private long parentType;
-    //Icon
+
     private String icon;
 
     public long getParentType() {
@@ -30,4 +34,19 @@ public class EventTypeDSO implements Serializable
         this.parentType = parentType;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }

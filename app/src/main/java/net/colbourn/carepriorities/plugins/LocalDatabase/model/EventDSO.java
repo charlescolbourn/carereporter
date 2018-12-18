@@ -17,16 +17,21 @@ import net.colbourn.carepriorities.model.EventType;
 import org.joda.time.Duration;
 
 import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 @Entity
 public class EventDSO implements Serializable
 {
+    @Id
+    private long id;
+
+
     private Date time;
     private long eventType;
     private String name;
     private long eventDuration;
-    private int reoccurenceNumber;
-    private String reoccurenceUnits;
+//    private int reoccurenceNumber;
+//    private String reoccurenceUnits;
 
     //icon (cached & transient?)
 
@@ -62,14 +67,13 @@ public class EventDSO implements Serializable
         this.eventDuration = eventDuration.getMillis();
     }
 
-    public Duration getReoccurence() {
-        return Duration.of(reoccurenceNumber, reoccurenceUnits);
+
+
+    public long getId() {
+        return id;
     }
 
-    public void setReoccurence(Duration reoccurence) {
-        this.reoccurence = reoccurence;
+    public void setId(long id) {
+        this.id = id;
     }
-
-
-
 }
