@@ -34,5 +34,16 @@ public class ClientDSO {
         return photo;
     }
 
+    public void setName(String name)
+    {
+        setPreferredName(name);
+    }
 
+    public void setPreferredName(String preferredName) {
+        this.preferredName = preferredName;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

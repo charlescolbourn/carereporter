@@ -4,22 +4,31 @@
  * Licence: GPL
  *
  **************************************************************************************************/
-package net.colbourn.carepriorities.model;
-
-import org.joda.time.Duration;
+package net.colbourn.carepriorities.plugins.LocalDatabase.model;
 
 import java.io.Serializable;
+
 import java.time.ZonedDateTime;
 import java.util.Date;
 
+import net.colbourn.carepriorities.model.Event;
+import net.colbourn.carepriorities.model.EventType;
 
-public class Event implements Serializable
+import org.joda.time.Duration;
+
+import io.objectbox.annotation.Entity;
+
+@Entity
+public class EventDSO implements Serializable
 {
     private Date time;
-    private EventType eventType;
+    private long eventType;
     private String name;
-    private Duration eventDuration;
-    private Duration reoccurence;
+    private long eventDuration;
+    private int reoccurenceNumber;
+    private String reoccurenceUnits;
+
+    //icon (cached & transient?)
 
     public Date getTime() {
         return time;
@@ -29,11 +38,11 @@ public class Event implements Serializable
         this.time = time;
     }
 
-    public EventType getEventType() {
+    public long getEventType() {
         return eventType;
     }
 
-    public void setEventType(EventType eventType) {
+    public void setEventType(long eventType) {
         this.eventType = eventType;
     }
 
@@ -46,15 +55,15 @@ public class Event implements Serializable
     }
 
     public Duration getEventDuration() {
-        return eventDuration;
+        return Duration.millis(eventDuration);
     }
 
     public void setEventDuration(Duration eventDuration) {
-        this.eventDuration = eventDuration;
+        this.eventDuration = eventDuration.getMillis();
     }
 
     public Duration getReoccurence() {
-        return reoccurence;
+        return Duration.of(reoccurenceNumber, reoccurenceUnits);
     }
 
     public void setReoccurence(Duration reoccurence) {
@@ -62,5 +71,5 @@ public class Event implements Serializable
     }
 
 
-    //icon (cached & transient?)
+
 }

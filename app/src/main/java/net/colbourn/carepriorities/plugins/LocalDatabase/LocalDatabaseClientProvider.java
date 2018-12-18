@@ -15,25 +15,29 @@ import io.objectbox.BoxStore;
 
 public class LocalDatabaseClientProvider implements ClientProvider
 {
+    Box<ClientDSO> box;
+
 
     LocalDatabaseClientProvider() //TODO IoC this from the test
     {
-
-
         BoxStore boxStore = new LocalDatabaseProvider().getBoxStore();
-
-
-        Box<ClientDSO> box = boxStore.boxFor(ClientDSO.class);
+        box = boxStore.boxFor(ClientDSO.class);
     }
 
-
-
+    public boolean writeClient(Person client)
+    {
+        ClientDSO dso = convertPersonToDSO(client);
+        long ret =  box.put(dso);
+        return ret == 1 ? true : false;
+    }
 
     public Person getClient(String id){
-        return null;
+        ClientDSO client = box.get(Long.getLong(id));
+        return convertDSOToPerson(client);
     }
 
-    public List<Person> getAllClients(){
+    public List<Person> getAllClients()
+    {
         List<Person> retlist = new ArrayList<>();
         for (int i = 0; i < 10; i++)
         {
@@ -47,9 +51,14 @@ public class LocalDatabaseClientProvider implements ClientProvider
         Client client = new Client(clientDSO.getName());
         client.setPhoto(client.getPhoto());
         return client;
-
     }
-
+    private ClientDSO convertPersonToDSO(Person client)
+    {
+        ClientDSO dso = new ClientDSO();
+        dso.setName(client.getName());
+        dso.setPhoto(client.getPhoto());
+        return dso;
+    }
 
 
 
