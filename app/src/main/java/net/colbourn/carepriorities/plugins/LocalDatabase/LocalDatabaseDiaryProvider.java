@@ -1,10 +1,16 @@
 package net.colbourn.carepriorities.plugins.LocalDatabase;
 
+import android.util.Pair;
+
 import net.colbourn.carepriorities.api.DiaryProvider;
 import net.colbourn.carepriorities.model.Event;
 import net.colbourn.carepriorities.model.EventType;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventTypeDSO;
+
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Period;
 
 import javax.inject.Singleton;
 
@@ -35,8 +41,9 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
         event.setTime(dso.getTime());
         event.setEventType(dsoToEventType(getEventTypeDSO(dso.getEventType())));
         event.setName(dso.getName());
-        event.setEventDuration(dso.getEventDuration());
-        event.setReoccurence(dso.getReoccurence());
+        event.setEventDuration(Duration.millis(dso.getEventDuration()));
+        Pair<Integer, String> reoccurence = dso.getReoccurence();
+        event.setReoccurence(convertReoccurencePairToDuration(reoccurence.first, reoccurence.second));
         return event;
     }
 
@@ -46,8 +53,9 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
         eventDSO.setTime(event.getTime());
         eventDSO.setEventType(event.getEventType().getId());
         eventDSO.setName(event.getName());
-        eventDSO.setEventDuration(event.getEventDuration());
-        eventDSO.setReoccurence(event.getReoccurence());
+        eventDSO.setEventDuration(event.getEventDuration().getMillis());
+        Pair<Integer, String> reoccurnce = convertDurationToReoccurencePair(event.getReoccurence());
+        eventDSO.setReoccurence(reoccurnce.first,reoccurnce.second);
         return eventDSO;
     }
 
@@ -67,4 +75,48 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
         return dso;
     }
 
+    public Duration convertReoccurencePairToDuration(int number, String reoccurenceType)
+    {
+        Event.REOCCURENCE_TYPES reoccurenceTypeValue = getEnumReoccurenceValue(reoccurenceType);
+        Period period = new Period();
+        switch (reoccurenceTypeValue)
+        {
+            case DAYS:
+                period.withDays(number);
+                break;
+            case WEEKS:
+                period.withWeeks(number);
+                break;
+            case MONTHS:
+                period.withMonths(number);
+                break;
+            case YEARS:
+                period.withYears(number);
+                break;
+            case HOURS:
+                period.withHours(number);
+                break;
+            case MINUTES:
+                period.withMinutes(number);
+                break;
+            default:
+                throw new RuntimeException("Unsupported date type used");
+        }
+        return new Duration(period);
+    }
+
+    public Event.REOCCURENCE_TYPES getEnumReoccurenceValue(String type)
+    {
+        for (Event.REOCCURENCE_TYPES candidateType : Event.REOCCURENCE_TYPES.values())
+        {
+            if (candidateType.name().equals(type))
+                return candidateType;
+
+        }
+        return null;
+    }
+    public Pair<Integer, String> convertDurationToReoccurencePair(Duration duration)
+    {
+        return new Pair<>(0,"foo");
+    }
 }

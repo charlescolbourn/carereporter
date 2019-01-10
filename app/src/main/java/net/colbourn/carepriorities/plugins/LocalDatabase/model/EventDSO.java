@@ -6,13 +6,11 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.plugins.LocalDatabase.model;
 
+import android.util.Pair;
+
 import java.io.Serializable;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
-
-import net.colbourn.carepriorities.model.Event;
-import net.colbourn.carepriorities.model.EventType;
 
 import org.joda.time.Duration;
 
@@ -23,15 +21,23 @@ import io.objectbox.annotation.Id;
 public class EventDSO implements Serializable
 {
     @Id
-    private long id;
-
+    private Long id;
 
     private Date time;
     private long eventType;
     private String name;
+
+    public long getEventDuration() {
+        return eventDuration;
+    }
+
+    public void setEventDuration(long eventDuration) {
+        this.eventDuration = eventDuration;
+    }
+
     private long eventDuration;
-//    private int reoccurenceNumber;
-//    private String reoccurenceUnits;
+    private int reoccurenceNumber;
+    private String reoccurenceUnits;
 
     //icon (cached & transient?)
 
@@ -59,21 +65,37 @@ public class EventDSO implements Serializable
         this.name = name;
     }
 
-    public Duration getEventDuration() {
-        return Duration.millis(eventDuration);
+    public Pair<Integer, String> getReoccurence() {
+        return Pair.create(getReoccurenceNumber(), getReoccurenceUnits());
     }
 
-    public void setEventDuration(Duration eventDuration) {
-        this.eventDuration = eventDuration.getMillis();
+    public void setReoccurence(int reoccurenceNumber, String reoccurenceUnits) {
+        this.setReoccurenceNumber(reoccurenceNumber);
+        this.setReoccurenceUnits(reoccurenceUnits);
     }
 
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getReoccurenceNumber() {
+        return reoccurenceNumber;
+    }
+
+    public void setReoccurenceNumber(int reoccurenceNumber) {
+        this.reoccurenceNumber = reoccurenceNumber;
+    }
+
+    public String getReoccurenceUnits() {
+        return reoccurenceUnits;
+    }
+
+    public void setReoccurenceUnits(String reoccurenceUnits) {
+        this.reoccurenceUnits = reoccurenceUnits;
     }
 }

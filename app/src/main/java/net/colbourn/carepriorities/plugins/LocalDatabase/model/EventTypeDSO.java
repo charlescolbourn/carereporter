@@ -20,10 +20,10 @@ import io.objectbox.converter.PropertyConverter;
 public class EventTypeDSO implements Serializable
 {
     @Id
-    private long id;
+    private Long id;
 
     private long parentType;
-
+    //Icon
     private String icon;
 
     public long getParentType() {
@@ -34,11 +34,11 @@ public class EventTypeDSO implements Serializable
         this.parentType = parentType;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

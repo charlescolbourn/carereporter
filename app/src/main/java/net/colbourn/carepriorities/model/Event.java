@@ -61,6 +61,8 @@ public class Event implements Serializable
         this.reoccurence = reoccurence;
     }
 
+    public enum REOCCURENCE_TYPES { MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS }
+
 
     //icon (cached & transient?)
 }
