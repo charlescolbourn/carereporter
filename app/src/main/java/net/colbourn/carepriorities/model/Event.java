@@ -18,8 +18,8 @@ public class Event implements Serializable
     private Date time;
     private EventType eventType;
     private String name;
-    private Duration eventDuration;
-    private Duration reoccurence;
+    private Long eventDuration;
+    private Reoccurrence reoccurrence;
 
     public Date getTime() {
         return time;
@@ -45,20 +45,20 @@ public class Event implements Serializable
         this.name = name;
     }
 
-    public Duration getEventDuration() {
+    public Long getEventDuration() {
         return eventDuration;
     }
 
-    public void setEventDuration(Duration eventDuration) {
+    public void setEventDuration(Long eventDuration) {
         this.eventDuration = eventDuration;
     }
 
-    public Duration getReoccurence() {
-        return reoccurence;
+    public Reoccurrence getReoccurrence() {
+        return reoccurrence;
     }
 
-    public void setReoccurence(Duration reoccurence) {
-        this.reoccurence = reoccurence;
+    public void setReoccurrence(Reoccurrence reoccurence) {
+        this.reoccurrence = reoccurence;
     }
 
 

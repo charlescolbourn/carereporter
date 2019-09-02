@@ -13,11 +13,13 @@ import java.util.Date;
 
 import net.colbourn.carepriorities.model.Event;
 import net.colbourn.carepriorities.model.EventType;
+import net.colbourn.carepriorities.model.Reoccurrence;
 
 import org.joda.time.Duration;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.relation.ToOne;
 
 @Entity
 public class EventDSO implements Serializable
@@ -29,9 +31,10 @@ public class EventDSO implements Serializable
     private Date time;
     private long eventType;
     private String name;
-    private long eventDuration;
-//    private int reoccurenceNumber;
-//    private String reoccurenceUnits;
+    private Long eventDuration;
+
+    private ToOne<ReoccurrenceDSO> reoccurrenceDSO;
+
 
     //icon (cached & transient?)
 
@@ -59,15 +62,13 @@ public class EventDSO implements Serializable
         this.name = name;
     }
 
-    public Duration getEventDuration() {
-        return Duration.millis(eventDuration);
+    public Long getEventDuration() {
+        return eventDuration;
     }
 
-    public void setEventDuration(Duration eventDuration) {
-        this.eventDuration = eventDuration.getMillis();
+    public void setEventDuration(Long eventDuration) {
+        this.eventDuration = eventDuration;
     }
-
-
 
     public long getId() {
         return id;
@@ -75,5 +76,14 @@ public class EventDSO implements Serializable
 
     public void setId(long id) {
         this.id = id;
+    }
+
+
+    public ToOne<ReoccurrenceDSO> getReoccurrenceDSO() {
+        return reoccurrenceDSO;
+    }
+
+    public void setReoccurrenceDSO(ReoccurrenceDSO reoccurrenceDSO) {
+        this.reoccurrenceDSO.setTarget(reoccurrenceDSO);
     }
 }

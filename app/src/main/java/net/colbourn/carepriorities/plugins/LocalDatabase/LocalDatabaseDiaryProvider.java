@@ -5,22 +5,26 @@ import net.colbourn.carepriorities.model.Event;
 import net.colbourn.carepriorities.model.EventType;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventTypeDSO;
+import net.colbourn.carepriorities.plugins.LocalDatabase.model.ReoccurrenceDSO;
 
 import javax.inject.Singleton;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
+import io.objectbox.relation.ToOne;
 
 public class LocalDatabaseDiaryProvider implements DiaryProvider {
 
     private Box<EventDSO> eventbox;
     private Box<EventTypeDSO> eventTypeBox;
+    private Box<ReoccurrenceDSO> reoccurrenceBox;
 
     LocalDatabaseDiaryProvider()
     {
         BoxStore boxStore = new LocalDatabaseProvider().getBoxStore();
         eventbox = boxStore.boxFor(EventDSO.class);
         eventTypeBox = boxStore.boxFor(EventTypeDSO.class);
+        reoccurrenceBox = boxStore.boxFor(ReoccurrenceDSO.class);
     }
 
     private EventTypeDSO getEventTypeDSO(long id)
@@ -36,7 +40,7 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
         event.setEventType(dsoToEventType(getEventTypeDSO(dso.getEventType())));
         event.setName(dso.getName());
         event.setEventDuration(dso.getEventDuration());
-        event.setReoccurence(dso.getReoccurence());
+        event.setReoccurrence(dso.getReoccurrenceDSO().getTarget().getReoccurrence());
         return event;
     }
 
@@ -47,7 +51,7 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
         eventDSO.setEventType(event.getEventType().getId());
         eventDSO.setName(event.getName());
         eventDSO.setEventDuration(event.getEventDuration());
-        eventDSO.setReoccurence(event.getReoccurence());
+        eventDSO.setReoccurrenceDSO(new ReoccurrenceDSO(event.getReoccurrence()));
         return eventDSO;
     }
 
