@@ -1,6 +1,8 @@
 package net.colbourn.carepriorities.plugins.DesktopObjectBoxProvider;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.MyObjectBox;
 
+import java.io.File;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -14,7 +16,7 @@ public class DBConnectionProvider {
     @Singleton
     static BoxStore provide()
     {
-        return MyObjectBox.builder().name("objectbox-db").build();
+        return MyObjectBox.builder().build();
     }
 
 }

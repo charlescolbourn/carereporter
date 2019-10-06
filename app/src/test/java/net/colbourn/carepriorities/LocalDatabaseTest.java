@@ -41,6 +41,7 @@ public class LocalDatabaseTest {
         assertEquals(clientProvider.getAllClients().size(), 10);
     }
 
+    @Ignore
     @Test
     public void test_client_dso() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException
     {

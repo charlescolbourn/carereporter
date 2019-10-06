@@ -1,6 +1,8 @@
 package net.colbourn.carepriorities.plugins.LocalDatabase;
 
 
+import android.content.Context;
+
 import net.colbourn.carepriorities.model.Client;
 import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.api.Person;
@@ -18,7 +20,7 @@ public class LocalDatabaseClientProvider implements ClientProvider
     Box<ClientDSO> box;
 
 
-    LocalDatabaseClientProvider()
+    public LocalDatabaseClientProvider()
     {
         BoxStore boxStore = new LocalDatabaseProvider().getBoxStore();
         box = boxStore.boxFor(ClientDSO.class);

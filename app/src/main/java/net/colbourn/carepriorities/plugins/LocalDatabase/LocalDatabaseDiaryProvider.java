@@ -7,11 +7,8 @@ import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventTypeDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.ReoccurrenceDSO;
 
-import javax.inject.Singleton;
-
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
-import io.objectbox.relation.ToOne;
 
 public class LocalDatabaseDiaryProvider implements DiaryProvider {
 

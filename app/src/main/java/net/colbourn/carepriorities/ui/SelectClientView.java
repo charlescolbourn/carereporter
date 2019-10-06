@@ -15,10 +15,13 @@ import android.widget.SimpleAdapter;
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.api.Person;
+import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseClientProvider;
+import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 import javax.inject.Inject;
 
@@ -26,7 +29,7 @@ public class SelectClientView extends AppCompatActivity {
 
     private static final String L = SelectClientView.class.getName();
 
-    @Inject
+//    @Inject
     ClientProvider clientProvider;
 
 
@@ -36,6 +39,9 @@ public class SelectClientView extends AppCompatActivity {
         setContentView(R.layout.activity_clientselect);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.select_client_toolbar);
         setSupportActionBar(myToolbar);
+        LocalDatabaseProvider.init(this.getApplicationContext());
+        clientProvider = new LocalDatabaseClientProvider();
+
         showListOfClients();
     }
 
