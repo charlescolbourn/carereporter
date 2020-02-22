@@ -6,9 +6,11 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.model;
 
+import net.colbourn.carepriorities.api.EventType;
+
 import java.io.Serializable;
 
-public class EventType implements Serializable
+public class DiaryEventType implements EventType, Serializable
 {
     private long id;
 

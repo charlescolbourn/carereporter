@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-import javax.inject.Inject;
-
 public class SelectClientView extends AppCompatActivity {
 
     private static final String L = SelectClientView.class.getName();
@@ -73,7 +70,7 @@ public class SelectClientView extends AppCompatActivity {
         String[] from = {"listview_image", "listview_title", "listview_description"};
         int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
 
-        return new SimpleAdapter(getBaseContext(), pList, R.layout.listview_textandphoto, from, to);
+        return new SimpleAdapter(getBaseContext(), pList, R.layout.client_list_view, from, to);
 
     }
 
@@ -97,7 +94,7 @@ public class SelectClientView extends AppCompatActivity {
 
     private void openDiary(Person client)
     {
-        Intent intent = new Intent(this,DiaryActivity.class);
+        Intent intent = new Intent(this,DiaryView.class);
         startActivity(intent);
     }
 

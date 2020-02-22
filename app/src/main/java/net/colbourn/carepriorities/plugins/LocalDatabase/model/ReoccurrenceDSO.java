@@ -1,7 +1,7 @@
 package net.colbourn.carepriorities.plugins.LocalDatabase.model;
 
-import net.colbourn.carepriorities.model.Reoccurrence;
-
+import net.colbourn.carepriorities.api.Reoccurrence;
+import net.colbourn.carepriorities.model.EventReoccurrence;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Transient;
@@ -18,10 +18,6 @@ public class ReoccurrenceDSO {
     private Reoccurrence.PeriodicityOption periodicity;
 
 
-    public ReoccurrenceDSO()
-    {
-    }
-
     public ReoccurrenceDSO(Reoccurrence reoccurrence)
     {
         this.setInterval(reoccurrence.getInterval());
@@ -30,7 +26,7 @@ public class ReoccurrenceDSO {
 
     public Reoccurrence getReoccurrence()
     {
-        Reoccurrence reoccurrence = new Reoccurrence();
+        Reoccurrence reoccurrence = new EventReoccurrence();
         reoccurrence.setInterval(this.getInterval());
         reoccurrence.setPeriodicity(this.periodicity);
         return reoccurrence;

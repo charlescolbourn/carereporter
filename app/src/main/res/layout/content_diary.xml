@@ -5,7 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.DiaryActivity"
+    tools:context=".ui.DiaryView"
     tools:showIn="@layout/activity_diary">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listOfEvents" />
+
 
 </android.support.constraint.ConstraintLayout>

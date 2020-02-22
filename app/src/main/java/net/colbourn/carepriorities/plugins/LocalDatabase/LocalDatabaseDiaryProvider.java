@@ -1,8 +1,10 @@
 package net.colbourn.carepriorities.plugins.LocalDatabase;
 
 import net.colbourn.carepriorities.api.DiaryProvider;
-import net.colbourn.carepriorities.model.Event;
-import net.colbourn.carepriorities.model.EventType;
+import net.colbourn.carepriorities.api.Event;
+import net.colbourn.carepriorities.api.EventType;
+import net.colbourn.carepriorities.model.DiaryEvent;
+import net.colbourn.carepriorities.model.DiaryEventType;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventTypeDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.ReoccurrenceDSO;
@@ -32,7 +34,7 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
 
     public Event dsoToEvent(EventDSO dso)
     {
-        Event event = new Event();
+        Event event = new DiaryEvent();
         event.setTime(dso.getTime());
         event.setEventType(dsoToEventType(getEventTypeDSO(dso.getEventType())));
         event.setName(dso.getName());
@@ -55,7 +57,7 @@ public class LocalDatabaseDiaryProvider implements DiaryProvider {
 
     public EventType dsoToEventType(EventTypeDSO dso)
     {
-        EventType eventtype = new EventType();
+        EventType eventtype = new DiaryEventType();
         eventtype.setParentType(dsoToEventType(getEventTypeDSO(dso.getParentType())));
         return eventtype;
     }

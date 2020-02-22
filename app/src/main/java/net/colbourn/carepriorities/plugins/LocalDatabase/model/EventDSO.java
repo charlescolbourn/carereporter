@@ -8,14 +8,7 @@ package net.colbourn.carepriorities.plugins.LocalDatabase.model;
 
 import java.io.Serializable;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
-
-import net.colbourn.carepriorities.model.Event;
-import net.colbourn.carepriorities.model.EventType;
-import net.colbourn.carepriorities.model.Reoccurrence;
-
-import org.joda.time.Duration;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;

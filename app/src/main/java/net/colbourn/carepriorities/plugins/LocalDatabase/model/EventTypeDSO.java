@@ -6,15 +6,10 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.plugins.LocalDatabase.model;
 
-import net.colbourn.carepriorities.model.Event;
-import net.colbourn.carepriorities.model.EventType;
-
 import java.io.Serializable;
 
-import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
-import io.objectbox.converter.PropertyConverter;
 
 @Entity
 public class EventTypeDSO implements Serializable

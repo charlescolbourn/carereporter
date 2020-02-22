@@ -6,20 +6,23 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.model;
 
-import org.joda.time.Duration;
 
-import java.io.Serializable;
-import java.time.ZonedDateTime;
+import net.colbourn.carepriorities.api.Event;
+import net.colbourn.carepriorities.api.EventType;
+import net.colbourn.carepriorities.api.Reoccurrence;
+
 import java.util.Date;
 
 
-public class Event implements Serializable
+
+public class DiaryEvent implements Event
 {
     private Date time;
     private EventType eventType;
     private String name;
     private Long eventDuration;
     private Reoccurrence reoccurrence;
+    private String icon;
 
     public Date getTime() {
         return time;
@@ -62,6 +65,8 @@ public class Event implements Serializable
     }
 
     public enum REOCCURENCE_TYPES { MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS }
+
+    public String getIcon() { return this.icon; }
 
 
     //icon (cached & transient?)

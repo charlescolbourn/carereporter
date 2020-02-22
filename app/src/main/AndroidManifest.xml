@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".ui.EditClient" />
         <activity
-            android:name=".ui.DiaryActivity"
+            android:name=".ui.DiaryView"
             android:label="@string/title_activity_diary"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
