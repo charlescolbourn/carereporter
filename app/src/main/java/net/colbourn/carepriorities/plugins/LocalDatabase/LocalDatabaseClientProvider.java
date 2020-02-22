@@ -40,12 +40,22 @@ public class LocalDatabaseClientProvider implements ClientProvider
 
     public List<Person> getAllClients()
     {
-        List<Person> retlist = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
+//        List<Person> retlist = new ArrayList<>();
+//        for (int i = 0; i < 10; i++)
+//        {
+//            retlist.add(new net.colbourn.carepriorities.model.Client("dumpling the cat " + i));
+//        }
+//        return retlist;
+        return convertDSOsToPersons(box.getAll());
+    }
+
+    private List<Person> convertDSOsToPersons(List<ClientDSO> personDSOs) {
+        List<Person> people = new ArrayList<>();
+        for (ClientDSO dso : personDSOs)
         {
-            retlist.add(new net.colbourn.carepriorities.model.Client("dumpling the cat " + i));
+            people.add(convertDSOToPerson(dso));
         }
-        return retlist;
+        return people;
     }
 
     private Person convertDSOToPerson(ClientDSO clientDSO)
