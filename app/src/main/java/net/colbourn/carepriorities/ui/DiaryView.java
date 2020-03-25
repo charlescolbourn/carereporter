@@ -16,7 +16,6 @@ import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
-import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseProvider;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +26,7 @@ public class DiaryView extends AppCompatActivity {
     private enum ViewType { HOURLY, DAILY, WEEKLY, LIST };
 
     EventProvider eventProvider;
+    long clientId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,9 @@ public class DiaryView extends AppCompatActivity {
         setContentView(R.layout.activity_diary);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.diaryview_toolbar);
         setSupportActionBar(myToolbar);
+
+        clientId = savedInstanceState
+
 
         eventProvider = new LocalDatabaseEventProvider();
 
@@ -136,7 +139,7 @@ public class DiaryView extends AppCompatActivity {
     }
 
     private void openEvent(Event event) {
-        Intent intent = new Intent(this,DiaryEntryView.class);
+        Intent intent = new Intent(this,EventView.class);
         startActivity(intent);
     }
 

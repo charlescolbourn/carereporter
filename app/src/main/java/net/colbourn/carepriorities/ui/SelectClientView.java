@@ -97,6 +97,7 @@ public class SelectClientView extends AppCompatActivity {
     private void openDiary(Person client)
     {
         Intent intent = new Intent(this,DiaryView.class);
+        intent.putExtra("clientid",client.getId());
         startActivity(intent);
     }
 

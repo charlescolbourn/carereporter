@@ -11,7 +11,7 @@ import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 
-public class DiaryEntryView extends AppCompatActivity {
+public class EventView extends AppCompatActivity {
 
 
     private EventProvider eventProvider;

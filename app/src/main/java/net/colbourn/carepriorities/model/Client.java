@@ -6,6 +6,9 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 import net.colbourn.carepriorities.R;
@@ -17,7 +20,7 @@ import io.objectbox.annotation.Transient;
 
 
 
-public class Client implements Person, Serializable {
+public class Client implements Person, Serializable, Parcelable {
 
     public long id;
     private String preferredName;
@@ -29,6 +32,9 @@ public class Client implements Person, Serializable {
     public Client(String name) {
         preferredName = name;
     }
+
+    @Override
+    public long getId() { return id; }
 
     @Override
     public String getName() {
@@ -44,4 +50,14 @@ public class Client implements Person, Serializable {
         this.photo = photo;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+
+    }
 }
