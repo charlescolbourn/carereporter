@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import net.colbourn.carepriorities.R;
@@ -75,8 +76,9 @@ public class EditClient extends AppCompatActivity {
 
     protected void saveClientDetails()
     {
+        Log.v("PHOTO","The photo should be at " + currentPhotoPath);
         ClientProvider clientProvider = new LocalDatabaseClientProvider();
-        Client client = new Client(findViewById(R.id.editClientName).toString()); // TODO toString?
+        Client client = new Client( ((EditText)findViewById(R.id.editClientName)).getText().toString() );
         client.setPhoto(currentPhotoPath);
         ((LocalDatabaseClientProvider) clientProvider).writeClient(client);
         this.finish();
@@ -138,6 +140,7 @@ public class EditClient extends AppCompatActivity {
         {
             Bitmap photo = BitmapFactory.decodeFile(currentPhotoPath);
             clientImage.setImageBitmap(photo);
+            Log.v("PHOTO","The photo should be at " + currentPhotoPath);
         }
     }
 

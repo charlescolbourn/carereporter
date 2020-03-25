@@ -36,9 +36,7 @@ public class Client implements Person, Serializable {
     }
 
     @Override
-    public String getPhoto() {
-        return Integer.toString(R.drawable.dumpling);
-    }
+    public String getPhoto() { return photo; }
 
     @Override
     public void setPhoto(String photo)

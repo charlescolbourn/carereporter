@@ -39,6 +39,7 @@ public class SelectClientView extends AppCompatActivity {
         LocalDatabaseProvider.init(this.getApplicationContext());
         clientProvider = new LocalDatabaseClientProvider();
 
+        Log.v("SELECTCLIENTVIEW","Refreshing list of clients");
         showListOfClients();
     }
 
@@ -63,8 +64,8 @@ public class SelectClientView extends AppCompatActivity {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("listview_title", p.getName());
             hm.put("listview_description", "");
+            Log.v("SELECTCLIENTVIEW","getting photo from " + p.getPhoto());
             hm.put("listview_image", p.getPhoto());
-            Log.d("image",p.getPhoto());
             pList.add(hm);
         }
 

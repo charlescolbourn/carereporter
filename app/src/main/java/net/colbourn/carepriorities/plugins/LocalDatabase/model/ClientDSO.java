@@ -43,7 +43,5 @@ public class ClientDSO {
         this.preferredName = preferredName;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+    public void setPhoto(String photo) { this.photo = photo; }
 }

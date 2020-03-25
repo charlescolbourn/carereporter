@@ -61,7 +61,7 @@ public class LocalDatabaseClientProvider implements ClientProvider
     private Person convertDSOToPerson(ClientDSO clientDSO)
     {
         Client client = new Client(clientDSO.getName());
-        client.setPhoto(client.getPhoto());
+        client.setPhoto(clientDSO.getPhoto());
         return client;
     }
     private ClientDSO convertPersonToDSO(Person client)
