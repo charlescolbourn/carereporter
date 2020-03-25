@@ -1,8 +1,12 @@
 package net.colbourn.carepriorities.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,8 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class DiaryView extends AppCompatActivity
-{
+public class DiaryView extends AppCompatActivity {
     private enum ViewType { HOURLY, DAILY, WEEKLY, LIST };
 
     EventProvider eventProvider;
@@ -37,14 +40,14 @@ public class DiaryView extends AppCompatActivity
         showDiary(ViewType.DAILY);
 
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
 
@@ -112,10 +115,10 @@ public class DiaryView extends AppCompatActivity
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> av, View arg1, int i, long arg3) {
-//                Log.v(L, "client at pos " + i);
-//                HashMap<String,String> p = (HashMap<String,String>) clientListView.getItemAtPosition(i);
-//                Log.v(L, "Client  " + p.get("listview_title"));
-//                openDiary(clients.get(i));
+                Log.v(DiaryView.class.getName(), "item at pos " + i);
+                HashMap<String,String> p = (HashMap<String,String>) eventListView.getItemAtPosition(i);
+                Log.v(DiaryView.class.getName(), "Client  " + p.get("listview_title"));
+                openEvent(events.get(i));
             }
         });
     }
@@ -130,6 +133,11 @@ public class DiaryView extends AppCompatActivity
 
     private void viewType_hourly() {
         viewType_list();
+    }
+
+    private void openEvent(Event event) {
+        Intent intent = new Intent(this,DiaryEntryView.class);
+        startActivity(intent);
     }
 
 

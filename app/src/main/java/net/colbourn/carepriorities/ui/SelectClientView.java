@@ -38,9 +38,9 @@ public class SelectClientView extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         LocalDatabaseProvider.init(this.getApplicationContext());
         clientProvider = new LocalDatabaseClientProvider();
-
-        Log.v("SELECTCLIENTVIEW","Refreshing list of clients");
+        Log.v("SELECTCLIENTVIEW","Showing list of clients");
         showListOfClients();
+
     }
 
     private List<Person> getAllClients() {
@@ -130,4 +130,10 @@ public class SelectClientView extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.v("SELECTCLIENTVIEW","Refreshing list of clients");
+        showListOfClients();
+    }
 }
