@@ -24,6 +24,13 @@ public class DiaryEvent implements Event
     private Reoccurrence reoccurrence;
     private String icon;
 
+    public DiaryEvent() {
+    }
+
+    public DiaryEvent(String name) {
+        this.name = name;
+    }
+
     public Date getTime() {
         return time;
     }

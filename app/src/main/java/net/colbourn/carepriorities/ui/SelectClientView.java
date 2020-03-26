@@ -15,6 +15,7 @@ import android.widget.SimpleAdapter;
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.api.Person;
+import net.colbourn.carepriorities.model.Client;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseClientProvider;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseProvider;
 
@@ -97,7 +98,10 @@ public class SelectClientView extends AppCompatActivity {
     private void openDiary(Person client)
     {
         Intent intent = new Intent(this,DiaryView.class);
-        intent.putExtra("clientid",client.getId());
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("client", client);
+        Log.v(SelectClientView.class.getName(),"Sending client with id " + client.getId());
+        intent.putExtra("client", client);
         startActivity(intent);
     }
 

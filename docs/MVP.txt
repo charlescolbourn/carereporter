@@ -1,0 +1,7 @@
+Minimum required functionality
+
+- create a client (with photo)
+- create a diary event (selectable type, open list, with icons)
+- display a daily diary
+- produce a document report for the day
+

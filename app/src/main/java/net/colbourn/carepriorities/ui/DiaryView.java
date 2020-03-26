@@ -15,7 +15,11 @@ import android.widget.SimpleAdapter;
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.Event;
+import net.colbourn.carepriorities.api.Person;
+import net.colbourn.carepriorities.model.Client;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +30,8 @@ public class DiaryView extends AppCompatActivity {
     private enum ViewType { HOURLY, DAILY, WEEKLY, LIST };
 
     EventProvider eventProvider;
-    long clientId;
+    Person client;
+    Date selectedDate = new Date();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,9 @@ public class DiaryView extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.diaryview_toolbar);
         setSupportActionBar(myToolbar);
 
-        clientId = savedInstanceState
 
+        client = (Person) getIntent().getSerializableExtra("client");
+        Log.v(DiaryView.class.getName(),"Got client with id " + client.getId());
 
         eventProvider = new LocalDatabaseEventProvider();
 
@@ -75,7 +81,7 @@ public class DiaryView extends AppCompatActivity {
     }
 
     private void viewType_list() {
-        List<Event> events = eventProvider.getAll();
+        List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
         showListOfEvents(events);
 
 

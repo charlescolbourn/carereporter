@@ -20,7 +20,7 @@ import io.objectbox.annotation.Transient;
 
 
 
-public class Client implements Person, Serializable, Parcelable {
+public class Client implements Person {
 
     public long id;
     private String preferredName;
@@ -48,16 +48,5 @@ public class Client implements Person, Serializable, Parcelable {
     public void setPhoto(String photo)
     {
         this.photo = photo;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
-
     }
 }

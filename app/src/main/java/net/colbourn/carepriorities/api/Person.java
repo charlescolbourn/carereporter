@@ -2,7 +2,9 @@ package net.colbourn.carepriorities.api;
 
 import android.graphics.drawable.Drawable;
 
-public interface Person {
+import java.io.Serializable;
+
+public interface Person extends Serializable {
 
     long getId();
 
