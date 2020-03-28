@@ -15,7 +15,6 @@ import android.widget.SimpleAdapter;
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.api.Person;
-import net.colbourn.carepriorities.model.Client;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseClientProvider;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseProvider;
 
@@ -23,9 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SelectClientView extends AppCompatActivity {
+public class SelectClient extends AppCompatActivity {
 
-    private static final String L = SelectClientView.class.getName();
+    private static final String L = SelectClient.class.getName();
 
 //    @Inject
     ClientProvider clientProvider;
@@ -97,10 +96,10 @@ public class SelectClientView extends AppCompatActivity {
 
     private void openDiary(Person client)
     {
-        Intent intent = new Intent(this,DiaryView.class);
+        Intent intent = new Intent(this,ViewDiary.class);
 //        Bundle bundle = new Bundle();
 //        bundle.putSerializable("client", client);
-        Log.v(SelectClientView.class.getName(),"Sending client with id " + client.getId());
+        Log.v(SelectClient.class.getName(),"Sending client with id " + client.getId());
         intent.putExtra("client", client);
         startActivity(intent);
     }
@@ -110,7 +109,7 @@ public class SelectClientView extends AppCompatActivity {
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.createclient:
-                intent = new Intent(this,EditClient.class);
+                intent = new Intent(this,ViewEditClient.class);
                 startActivity(intent);
                 return true;
 //            case R.id.help:

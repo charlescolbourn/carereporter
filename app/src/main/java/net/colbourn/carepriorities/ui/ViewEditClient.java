@@ -20,15 +20,13 @@ import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.ClientProvider;
 import net.colbourn.carepriorities.model.Client;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseClientProvider;
-import net.colbourn.carepriorities.plugins.LocalDatabase.model.ClientDSO;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EditClient extends AppCompatActivity {
+public class ViewEditClient extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
 //    private static final int CAMERA_REQUEST = 1888;
@@ -94,7 +92,7 @@ public class EditClient extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(EditClient.this.getPackageManager()) != null) {
+                if (intent.resolveActivity(ViewEditClient.this.getPackageManager()) != null) {
                     // Create the File where the photo should go
                     File photoFile = null;
                     try {
@@ -104,7 +102,7 @@ public class EditClient extends AppCompatActivity {
                     }
                     // Continue only if the File was successfully created
                     if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile( EditClient.this,
+                        Uri photoURI = FileProvider.getUriForFile( ViewEditClient.this,
                                 "com.example.android.fileprovider",
                                 photoFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
