@@ -7,4 +7,10 @@ public interface EventType {
     void setParentType(EventType eventType);
 
     EventType getParentType();
+
+    String getDefaultIcon();
+
+    long getDefaultDuration();
+
+    String getName();
 }

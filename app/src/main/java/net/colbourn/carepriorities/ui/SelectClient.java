@@ -33,7 +33,7 @@ public class SelectClient extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clientselect);
+        setContentView(R.layout.client_select);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.select_client_toolbar);
         setSupportActionBar(myToolbar);
         LocalDatabaseProvider.init(this.getApplicationContext());

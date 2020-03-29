@@ -20,6 +20,21 @@ public class DiaryEventType implements EventType, Serializable
         return parentType;
     }
 
+    @Override
+    public String getDefaultIcon() {
+        return null;
+    }
+
+    @Override
+    public long getDefaultDuration() {
+        return 0;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
     public void setParentType(EventType parentType) {
         this.parentType = parentType;
     }

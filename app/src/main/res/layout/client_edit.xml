@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ViewEditClient">
+    tools:context=".ui.EditClient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="?attr/actionBarDivider"
-            android:contentDescription="Client's picture"/>
+            app:srcCompat="?attr/actionBarDivider" />
 
         <EditText
             android:id="@+id/editClientName"
@@ -38,12 +37,14 @@
                 android:id="@+id/editClientViewCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Cancel" />
 
             <Button
                 android:id="@+id/editClientViewSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Save" />
 
         </LinearLayout>
