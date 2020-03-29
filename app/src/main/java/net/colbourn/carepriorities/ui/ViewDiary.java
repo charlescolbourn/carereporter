@@ -33,7 +33,7 @@ public class ViewDiary extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary);
+        setContentView(R.layout.diary_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.diaryview_toolbar);
         setSupportActionBar(myToolbar);
 
