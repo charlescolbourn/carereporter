@@ -6,7 +6,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "net.colbourn.carepriorities"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -39,4 +39,6 @@ dependencies {
     // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
+    implementation 'com.maltaisn:icondialog:2.0.2'
+    implementation "com.maltaisn:iconpack-default:1.0.0"
 }
