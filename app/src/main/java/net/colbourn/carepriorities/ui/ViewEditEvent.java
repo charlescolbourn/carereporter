@@ -11,8 +11,13 @@ import android.widget.Spinner;
 
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.EventProvider;
+import net.colbourn.carepriorities.api.EventType;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
+import net.colbourn.carepriorities.utils.JSONUtils;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +26,8 @@ public class ViewEditEvent extends AppCompatActivity {
 
 
     private EventProvider eventProvider;
+    private static String EventTypeFilename = "EventTypes.json";
+    private List<EventType> eventTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +76,11 @@ public class ViewEditEvent extends AppCompatActivity {
         //TODO fetch from DB
         String addNewTypeString = "Add new type";
         List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("testing only"); //remove this later
-        spinnerArray.add(addNewTypeString);
+        spinnerArray.addAll(getEventTypeNames());
+
+
+        //TODO get the maltaisn icon picker working
+//        spinnerArray.add(addNewTypeString);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, spinnerArray);
@@ -101,5 +111,24 @@ public class ViewEditEvent extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private List<String> getEventTypeNames() {
+        List<String> eventTypeNameList = new ArrayList<>();
+        if (eventTypes==null) {
+            try {
+                eventTypes = JSONUtils.getListOfEventTypes(this, EventTypeFilename);
+            } catch (IOException e) {
+                Log.e(ViewEditEvent.class.getName(), "Can't get built in event types", e);
+            } catch (JSONException e) {
+                Log.e(ViewEditEvent.class.getName(), "Can't get built in event types", e);
+            }
+        }
+
+        if (eventTypes != null) {
+            for (EventType e : eventTypes) {
+                eventTypeNameList.add(e.getName());
+            }
+        }
+        return eventTypeNameList;
+    }
 
 }

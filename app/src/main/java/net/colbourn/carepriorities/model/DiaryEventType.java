@@ -15,6 +15,9 @@ public class DiaryEventType implements EventType, Serializable
     private long id;
 
     private EventType parentType;
+    private String name;
+    private String iconName;
+    private int defaultDuration;
 
     public EventType getParentType() {
         return parentType;
@@ -22,7 +25,7 @@ public class DiaryEventType implements EventType, Serializable
 
     @Override
     public String getDefaultIcon() {
-        return null;
+        return iconName;
     }
 
     @Override
@@ -33,6 +36,21 @@ public class DiaryEventType implements EventType, Serializable
     @Override
     public String getName() {
         return null;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setDefaultIcon(String iconName) {
+        this.iconName = iconName;
+    }
+
+    @Override
+    public void setDefaultDuration(int minutes) {
+        this.defaultDuration = minutes;
     }
 
     public void setParentType(EventType parentType) {

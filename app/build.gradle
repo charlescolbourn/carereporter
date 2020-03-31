@@ -39,6 +39,7 @@ dependencies {
     // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-    implementation 'com.maltaisn:icondialog:2.0.2'
-    implementation "com.maltaisn:iconpack-default:1.0.0"
+//    implementation 'com.maltaisn:icondialog:2.0.2'
+//    implementation "com.maltaisn:iconpack-default:1.0.0"
+
 }

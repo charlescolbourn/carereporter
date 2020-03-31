@@ -13,4 +13,10 @@ public interface EventType {
     long getDefaultDuration();
 
     String getName();
+
+    void setName(String name);
+
+    void setDefaultIcon(String iconName);
+
+    void setDefaultDuration(int minutes);
 }

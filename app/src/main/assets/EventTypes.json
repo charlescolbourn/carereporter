@@ -1,0 +1,18 @@
+{
+  "EventTypes": [
+    {
+      "name": "Medication",
+      "defaultFrequency": "Daily",
+      "defaultIcon": "ic_schedule_24px",
+      "defaultDuration": 5
+
+    },
+    {
+      "name": "Coffee",
+      "defaultFrequency": "Once",
+      "defaultIcon": "ic_coffee_24px",
+      "defaultDuration": 30
+    }
+
+  ]
+}
