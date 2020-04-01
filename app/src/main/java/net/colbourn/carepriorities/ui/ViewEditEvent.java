@@ -1,8 +1,8 @@
 package net.colbourn.carepriorities.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ViewEditEvent extends AppCompatActivity {
+public class ViewEditEvent extends Activity {
 
 
     private EventProvider eventProvider;

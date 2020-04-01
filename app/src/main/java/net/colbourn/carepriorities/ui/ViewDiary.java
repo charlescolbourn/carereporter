@@ -1,16 +1,16 @@
 package net.colbourn.carepriorities.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.EventProvider;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class ViewDiary extends AppCompatActivity {
+public class ViewDiary extends Activity {
     private enum ViewType { HOURLY, DAILY, WEEKLY, LIST };
 
     EventProvider eventProvider;
@@ -35,7 +35,7 @@ public class ViewDiary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.diaryview_toolbar);
-        setSupportActionBar(myToolbar);
+        setActionBar(myToolbar);
 
 
         client = (Person) getIntent().getSerializableExtra("client");

@@ -1,9 +1,8 @@
 package net.colbourn.carepriorities.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toolbar;
 
 import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.ClientProvider;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SelectClient extends AppCompatActivity {
+public class SelectClient extends Activity {
 
     private static final String L = SelectClient.class.getName();
 
@@ -35,7 +35,7 @@ public class SelectClient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_select);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.select_client_toolbar);
-        setSupportActionBar(myToolbar);
+        setActionBar(myToolbar);
         LocalDatabaseProvider.init(this.getApplicationContext());
         clientProvider = new LocalDatabaseClientProvider();
         Log.v("SELECTCLIENTVIEW","Showing list of clients");
