@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,14 +16,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/entryTypeImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="?attr/actionBarDivider"
-                android:contentDescription="Activity Type Icon"/>
-
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="wrap_content"
@@ -33,6 +25,14 @@
                 android:hint="Event Name"
                 android:inputType="text" />
 
+            <ImageView
+                android:id="@+id/entryTypeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="Activity Type Icon"
+                app:srcCompat="?attr/actionBarDivider" />
+
         </LinearLayout>
 
         <TableLayout
@@ -41,7 +41,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/labelEventReoccurence"
@@ -81,7 +81,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/labelEventType"
@@ -143,4 +143,4 @@
         </TableLayout>
 
     </LinearLayout>
-</androidx.constraintlayout.ConstraintLayout>
+</FrameLayout>
