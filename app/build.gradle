@@ -40,7 +40,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.27'
 //    implementation 'com.maltaisn:icondialog:2.0.2'
 //    implementation "com.maltaisn:iconpack-default:1.0.0"
-
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
 
 
 

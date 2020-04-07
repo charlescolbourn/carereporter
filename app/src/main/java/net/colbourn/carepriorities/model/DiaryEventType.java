@@ -35,7 +35,7 @@ public class DiaryEventType implements EventType, Serializable
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override

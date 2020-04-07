@@ -1,6 +1,8 @@
 package net.colbourn.carepriorities.ui;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +42,7 @@ public class ViewEditEvent extends Activity {
 
         populateReoccurenceSelector();
         initialiseEventTypeSelector();
-
+        initialiseDatePicker();
 
 
 //        showDiary(ViewDiary.ViewType.DAILY);
@@ -74,7 +76,7 @@ public class ViewEditEvent extends Activity {
 
     private void initialiseEventTypeSelector() {
         //TODO fetch from DB
-        String addNewTypeString = "Add new type";
+//        String addNewTypeString = "Add new type";
         List<String> spinnerArray =  new ArrayList<String>();
         spinnerArray.addAll(getEventTypeNames());
 
@@ -87,6 +89,7 @@ public class ViewEditEvent extends Activity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner sItems = (Spinner) findViewById(R.id.selectorEventType);
+        Log.v(ViewEditEvent.class.getName(),"Setting adapter with " + spinnerArray.size() + " elements");
         sItems.setAdapter(adapter);
 
         sItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -94,9 +97,9 @@ public class ViewEditEvent extends Activity {
             public void onItemSelected(AdapterView<?> av, View arg1, int i, long arg3) {
                 Log.v(ViewEditEvent.class.getName(), "item at pos " + i);
 
-                if (sItems.getItemAtPosition(i).equals(addNewTypeString)) {
-                    createNewEventType();
-                }
+//                if (sItems.getItemAtPosition(i).equals(addNewTypeString)) {
+//                    createNewEventType();
+//                }
             }
 
             @Override
@@ -125,10 +128,23 @@ public class ViewEditEvent extends Activity {
 
         if (eventTypes != null) {
             for (EventType e : eventTypes) {
+                Log.v(ViewEditEvent.class.getName(),"adding name " + e.getName());
                 eventTypeNameList.add(e.getName());
             }
         }
         return eventTypeNameList;
     }
+
+    private void initialiseDatePicker() {
+        View eventDateTimeText = findViewById(R.id.textEventDateTime);
+        eventDateTimeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Dialog dateDialog = new DatePickerDialog( getApplicationContext());
+            }
+        });
+    }
+
+
 
 }

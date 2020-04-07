@@ -103,7 +103,7 @@ public class ViewEditClient extends Activity {
                     // Continue only if the File was successfully created
                     if (photoFile != null) {
                         Uri photoURI = FileProvider.getUriForFile( ViewEditClient.this,
-                                "com.example.android.fileprovider",
+                                "net.colbourn.carepriorities.android.fileprovider",
                                 photoFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                         startActivityForResult(intent, REQUEST_TAKE_PHOTO);

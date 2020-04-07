@@ -3,7 +3,6 @@ package net.colbourn.carepriorities.plugins.LocalDatabase;
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.model.DiaryEvent;
-import net.colbourn.carepriorities.plugins.LocalDatabase.model.ClientDSO;
 import net.colbourn.carepriorities.plugins.LocalDatabase.model.EventDSO;
 
 import java.time.Instant;

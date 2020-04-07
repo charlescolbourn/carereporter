@@ -78,6 +78,7 @@ public class ViewDiary extends Activity {
 
     private void viewType_list() {
         List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
+        Log.v(ViewDiary.class.getName(),"Showing " + events.size() + " events");
         showListOfEvents(events);
 
 
@@ -114,7 +115,7 @@ public class ViewDiary extends Activity {
 
     private void showListOfEvents(List<Event> events)
     {
-        ListView eventListView = (ListView) findViewById(R.id.listOfEvents);
+        ListView eventListView = findViewById(R.id.list_of_events);
         eventListView.setAdapter(adaptEventToListImageTextView(events));
         eventListView.setClickable(true);
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
