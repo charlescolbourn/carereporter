@@ -16,22 +16,22 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/eventIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="Activity Type Icon"
+                app:srcCompat="?attr/actionBarDivider" />
+
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/eventName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Event Name"
                 android:inputType="text" />
-
-            <ImageView
-                android:id="@+id/entryTypeImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="Activity Type Icon"
-                app:srcCompat="?attr/actionBarDivider" />
 
         </LinearLayout>
 
@@ -53,7 +53,7 @@
                     android:text="Frequency" />
 
                 <Spinner
-                    android:id="@+id/selectorReoccurrence"
+                    android:id="@+id/eventReoccurrence"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </TableRow>
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/labelEventDateTime"
+                    android:id="@+id/labelEventDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:editable="false"
@@ -72,13 +72,40 @@
                     android:text="Date/Time" />
 
                 <EditText
-                    android:id="@+id/textEventDateTime"
+                    android:id="@+id/textEventDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"/>
 
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/labelEventTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:text="Date/Time" />
+
+                <EditText
+                    android:id="@+id/textEventTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="time"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"/>
+
+            </TableRow>
+
 
             <TableRow
                 android:layout_width="match_parent"
@@ -118,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="number" />
             </TableRow>
 
             <TableRow
@@ -126,7 +153,7 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/editClientViewSave"
+                    android:id="@+id/editEventSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -134,7 +161,7 @@
                     android:text="Save" />
 
                 <Button
-                    android:id="@+id/editClientViewCancel"
+                    android:id="@+id/editEventCancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

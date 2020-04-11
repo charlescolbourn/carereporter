@@ -1,5 +1,7 @@
 package net.colbourn.carepriorities.plugins.LocalDatabase;
 
+import android.util.Log;
+
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.model.DiaryEvent;
@@ -16,8 +18,7 @@ import io.objectbox.BoxStore;
 public class LocalDatabaseEventProvider implements EventProvider {
     Box<EventDSO> box;
 
-    public LocalDatabaseEventProvider()
-    {
+    public LocalDatabaseEventProvider() {
         BoxStore boxStore = new LocalDatabaseProvider().getBoxStore();
         box = boxStore.boxFor(EventDSO.class);
     }
@@ -34,7 +35,15 @@ public class LocalDatabaseEventProvider implements EventProvider {
         return getAll();
     }
 
+    @Override
+    public void save(Event event) {
+        Log.v(LocalDatabaseEventProvider.class.getName(),"writing event with name " + event.getName());
+        EventDSO eventDSO = convertEventToDSO(event);
+        box.put(eventDSO);
+    }
+
     private List<Event> convertDSOsToEvents(List<EventDSO> eventDSOs) {
+        Log.v(LocalDatabaseEventProvider.class.getName(),"Converting " + eventDSOs.size() +" dsos to Events");
         List<Event> events = new ArrayList<>();
         for (EventDSO dso : eventDSOs)
         {
@@ -53,6 +62,10 @@ public class LocalDatabaseEventProvider implements EventProvider {
     {
         EventDSO dso = new EventDSO();
         dso.setName(event.getName());
+        dso.setEventDuration(event.getEventDuration());
+        dso.setEventType(event.getEventType().getId());
+        //TODO sort out reoccurence
+
 //        dso.setPhoto(client.getPhoto());
         return dso;
     }

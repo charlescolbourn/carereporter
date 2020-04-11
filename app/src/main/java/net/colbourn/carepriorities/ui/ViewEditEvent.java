@@ -2,26 +2,36 @@ package net.colbourn.carepriorities.ui;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import net.colbourn.carepriorities.R;
+import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.EventType;
+import net.colbourn.carepriorities.api.Reoccurrence;
+import net.colbourn.carepriorities.model.DiaryEvent;
+import net.colbourn.carepriorities.model.EventReoccurrence;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 import net.colbourn.carepriorities.utils.JSONUtils;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
 
 public class ViewEditEvent extends Activity {
@@ -30,47 +40,35 @@ public class ViewEditEvent extends Activity {
     private EventProvider eventProvider;
     private static String EventTypeFilename = "EventTypes.json";
     private List<EventType> eventTypes;
+    private EventType selectedEventType;
+    private Calendar eventDate = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary_entry_edit);
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.diaryentry_toolbar);
-//        setSupportActionBar(myToolbar);
-
         eventProvider = new LocalDatabaseEventProvider();
 
         populateReoccurenceSelector();
         initialiseEventTypeSelector();
         initialiseDatePicker();
+        initialiseTimePicker();
+        initialiseButtons();
 
-
-//        showDiary(ViewDiary.ViewType.DAILY);
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
 
-    private void populateReoccurenceSelector() { //TODO fetch from DB
+    private void populateReoccurenceSelector() {
         List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("Daily");
-        spinnerArray.add("Weekly");
-        spinnerArray.add("Monthly");
-        spinnerArray.add("Yearly");
+        for (Reoccurrence.PeriodicityOption option : EventReoccurrence.PeriodicityOption.values()) {
+            spinnerArray.add(option.name());
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, spinnerArray);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner sItems = (Spinner) findViewById(R.id.selectorReoccurrence);
+        Spinner sItems = (Spinner) findViewById(R.id.eventReoccurrence);
         sItems.setAdapter(adapter);
     }
 
@@ -96,10 +94,10 @@ public class ViewEditEvent extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> av, View arg1, int i, long arg3) {
                 Log.v(ViewEditEvent.class.getName(), "item at pos " + i);
-
 //                if (sItems.getItemAtPosition(i).equals(addNewTypeString)) {
 //                    createNewEventType();
 //                }
+                setEventType(spinnerArray.get(i));
             }
 
             @Override
@@ -136,15 +134,80 @@ public class ViewEditEvent extends Activity {
     }
 
     private void initialiseDatePicker() {
-        View eventDateTimeText = findViewById(R.id.textEventDateTime);
-        eventDateTimeText.setOnClickListener(new View.OnClickListener() {
+        View eventDateText = findViewById(R.id.textEventDate);
+        Calendar today = Calendar.getInstance();
+        eventDateText.setOnClickListener(v ->
+                new DatePickerDialog( ViewEditEvent.this, (view, year, month, dayOfMonth) ->
+                        setDate(year, month, dayOfMonth), today.get(Calendar.YEAR),today.get(Calendar.MONTH)+1,today.get(Calendar.DAY_OF_MONTH)).show());
+    }
+
+    private void initialiseTimePicker() {
+        View eventTimeText = findViewById(R.id.textEventTime);
+        Calendar today = Calendar.getInstance();
+        eventTimeText.setOnClickListener(v ->
+                new TimePickerDialog( ViewEditEvent.this, (view, hourOfDay, minute) ->
+                        setTime(hourOfDay, minute), today.get(Calendar.HOUR), today.get(Calendar.MINUTE), true).show());
+    }
+
+
+    public void setDate(int year, int month, int dayOfMonth) {
+        eventDate.set(Calendar.YEAR,year);
+        eventDate.set(Calendar.MONTH,month);
+        eventDate.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        ((TextView)findViewById(R.id.textEventDate)).setText(DateFormat.getDateInstance().format(eventDate.getTime()));
+    }
+
+    public void setTime(int hour, int minute) {
+        eventDate.set(Calendar.HOUR,hour);
+        eventDate.set(Calendar.MINUTE, minute);
+        ((TextView)findViewById(R.id.textEventTime)).setText(hour < 10 ? "0" + hour : hour + ":" + minute);
+    }
+
+    public void setEventType(String eventName) {
+        for(EventType e : eventTypes) {
+            if (e.getName().equals(eventName))
+                    selectedEventType = e;
+        }
+        if (selectedEventType != null) {
+            ImageView icon = (ImageView) findViewById(R.id.eventIcon);
+            Context context = icon.getContext();
+            icon.setImageResource(context.getResources().getIdentifier(selectedEventType.getDefaultIcon(),"drawable",context.getPackageName()));
+        }
+    }
+
+    private void save() {
+        Log.v(ViewEditEvent.class.getName(),"Writing event");
+        Event e = new DiaryEvent();
+        e.setName(((TextView)findViewById(R.id.eventName)).getText().toString());
+        e.setEventDuration(Long.getLong( ((TextView)findViewById(R.id.textEventDuration)).getText().toString()));
+        e.setEventType(selectedEventType);
+        e.setTime(eventDate.getTime());
+//        e.setReoccurrence(Reoccurrence.PeriodicityOption.valueOf( ((Spinner)findViewById(R.id.eventReoccurrence)).getSelectedItem().toString()) );
+        Log.v(ViewEditEvent.class.getName(),"Event name = " + e.getName());
+        eventProvider.save(e);
+    }
+
+    public void cancel() {
+        this.finish();
+    }
+
+    protected void initialiseButtons()
+    {
+        Button save = findViewById(R.id.editEventSave);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-//                Dialog dateDialog = new DatePickerDialog( getApplicationContext());
+            public void onClick(View view) {
+                save();
+            }
+        });
+        Button cancel = findViewById(R.id.editEventCancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel();
             }
         });
     }
-
 
 
 }
