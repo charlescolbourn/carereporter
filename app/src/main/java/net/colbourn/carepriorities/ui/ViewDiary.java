@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toolbar;
@@ -17,6 +18,7 @@ import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.Person;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
+import net.colbourn.carepriorities.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,7 +95,8 @@ public class ViewDiary extends Activity {
             hm.put("title", e.getName());
             hm.put("description", "");
             hm.put("time", formatDate(e.getTime()));
-            hm.put("icon", e.getIcon()); // quick demo hack
+            Log.v(ViewDiary.class.getName(),"Displaying icon " + e.getIcon());
+            hm.put("icon", ImageUtils.cacheIcon(this.getApplicationContext(),e.getIcon()));
             pList.add(hm);
         }
 
@@ -108,8 +111,7 @@ public class ViewDiary extends Activity {
     }
 
     private String formatDate(Date time) {
-        return time.toString(); //TODO
-
+        return time != null ? time.toString() : ""; //TOdo
     }
 
 
@@ -150,5 +152,9 @@ public class ViewDiary extends Activity {
     private void createEvent() {
         Intent intent = new Intent(this,ViewEditEvent.class);
         startActivity(intent);
+    }
+
+    private String getIconPathForIcon(String iconName) {
+        return "file:///android_assets/images/"+iconName;
     }
 }

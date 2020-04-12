@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,12 +26,17 @@ import net.colbourn.carepriorities.api.Reoccurrence;
 import net.colbourn.carepriorities.model.DiaryEvent;
 import net.colbourn.carepriorities.model.EventReoccurrence;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
+import net.colbourn.carepriorities.utils.ImageUtils;
 import net.colbourn.carepriorities.utils.JSONUtils;
 
 import org.json.JSONException;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -170,10 +178,18 @@ public class ViewEditEvent extends Activity {
         }
         if (selectedEventType != null) {
             ImageView icon = (ImageView) findViewById(R.id.eventIcon);
-            Context context = icon.getContext();
-            icon.setImageResource(context.getResources().getIdentifier(selectedEventType.getDefaultIcon(),"drawable",context.getPackageName()));
+            setIcon(icon,selectedEventType.getDefaultIcon());
         }
     }
+
+    private void setIcon (ImageView icon, String iconName) {
+        String path = ImageUtils.cacheIcon(this.getApplicationContext(),iconName);
+        Bitmap iconBitmap = BitmapFactory.decodeFile(path);
+        icon.setImageBitmap(iconBitmap);
+    }
+
+
+
 
     private void save() {
         Log.v(ViewEditEvent.class.getName(),"Writing event");
@@ -182,6 +198,7 @@ public class ViewEditEvent extends Activity {
         e.setEventDuration(Long.getLong( ((TextView)findViewById(R.id.textEventDuration)).getText().toString()));
         e.setEventType(selectedEventType);
         e.setTime(eventDate.getTime());
+        e.setIcon(selectedEventType.getDefaultIcon());
 //        e.setReoccurrence(Reoccurrence.PeriodicityOption.valueOf( ((Spinner)findViewById(R.id.eventReoccurrence)).getSelectedItem().toString()) );
         Log.v(ViewEditEvent.class.getName(),"Event name = " + e.getName());
         eventProvider.save(e);

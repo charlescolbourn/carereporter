@@ -3,14 +3,14 @@
     {
       "name": "Medication",
       "defaultFrequency": "Daily",
-      "defaultIcon": "schedule_black",
+      "defaultIcon": "schedule_black.png",
       "defaultDuration": 5
 
     },
     {
       "name": "Coffee",
       "defaultFrequency": "Once",
-      "defaultIcon": "cafe_black",
+      "defaultIcon": "cafe_black.png",
       "defaultDuration": 30
     }
 

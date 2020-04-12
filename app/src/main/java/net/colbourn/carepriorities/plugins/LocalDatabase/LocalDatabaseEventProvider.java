@@ -55,6 +55,8 @@ public class LocalDatabaseEventProvider implements EventProvider {
     private Event convertDSOToEvent(EventDSO eventDSO)
     {
         Event event = new DiaryEvent(eventDSO.getName());
+        event.setIcon(eventDSO.getIcon());
+        event.setTime(eventDSO.getTime());
 //        event.setPhoto(clientDSO.getPhoto());
         return event;
     }
@@ -64,6 +66,7 @@ public class LocalDatabaseEventProvider implements EventProvider {
         dso.setName(event.getName());
         dso.setEventDuration(event.getEventDuration());
         dso.setEventType(event.getEventType().getId());
+        dso.setIcon(event.getIcon());
         //TODO sort out reoccurence
 
 //        dso.setPhoto(client.getPhoto());

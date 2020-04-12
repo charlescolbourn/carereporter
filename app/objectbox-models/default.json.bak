@@ -1,0 +1,134 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2047306701349695818",
+      "lastPropertyId": "3:5417043363325706102",
+      "name": "EventTypeDSO",
+      "properties": [
+        {
+          "id": "1:8515934096243720638",
+          "name": "parentType",
+          "type": 6,
+          "flags": 4
+        },
+        {
+          "id": "2:7415403549090171668",
+          "name": "icon",
+          "type": 9
+        },
+        {
+          "id": "3:5417043363325706102",
+          "name": "id",
+          "type": 6,
+          "flags": 3
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:7272660565837017888",
+      "lastPropertyId": "3:8570260307602799721",
+      "name": "ClientDSO",
+      "properties": [
+        {
+          "id": "1:7804797091150326837",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1249405438020479366",
+          "name": "preferredName",
+          "type": 9
+        },
+        {
+          "id": "3:8570260307602799721",
+          "name": "photo",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:2561873754943258256",
+      "lastPropertyId": "8:8927798475936478567",
+      "name": "EventDSO",
+      "properties": [
+        {
+          "id": "1:5463458834024495011",
+          "name": "time",
+          "type": 10
+        },
+        {
+          "id": "2:2351314871796150417",
+          "name": "eventType",
+          "type": 6,
+          "flags": 4
+        },
+        {
+          "id": "3:6932697761766810691",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:8285871780852162592",
+          "name": "eventDuration",
+          "type": 6,
+          "flags": 2
+        },
+        {
+          "id": "7:2113302603300327929",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "8:8927798475936478567",
+          "name": "reoccurrenceDSOId",
+          "indexId": "1:2658345519897717607",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "ReoccurrenceDSO"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:2529694614893770544",
+      "lastPropertyId": "2:8965215332200078336",
+      "name": "ReoccurrenceDSO",
+      "properties": [
+        {
+          "id": "1:6709891607749780996",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8965215332200078336",
+          "name": "interval",
+          "type": 5,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "4:2529694614893770544",
+  "lastIndexId": "1:2658345519897717607",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    2745050523150803951,
+    2973469645845764535
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

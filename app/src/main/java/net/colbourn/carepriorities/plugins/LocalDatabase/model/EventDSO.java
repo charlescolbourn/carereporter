@@ -25,6 +25,7 @@ public class EventDSO implements Serializable
     private long eventType;
     private String name;
     private Long eventDuration;
+    private String icon;
 
     private ToOne<ReoccurrenceDSO> reoccurrenceDSO;
 
@@ -46,6 +47,8 @@ public class EventDSO implements Serializable
     public void setEventType(long eventType) {
         this.eventType = eventType;
     }
+
+    public void setIcon(String icon) { this.icon = icon; }
 
     public String getName() {
         return name;
@@ -70,6 +73,8 @@ public class EventDSO implements Serializable
     public void setId(long id) {
         this.id = id;
     }
+
+    public String getIcon () { return this.icon; }
 
 
     public ToOne<ReoccurrenceDSO> getReoccurrenceDSO() {

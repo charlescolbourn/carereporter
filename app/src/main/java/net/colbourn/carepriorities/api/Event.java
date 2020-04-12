@@ -27,6 +27,8 @@ public interface Event {
 
     String getIcon();
 
+    public void setIcon(String icon);
+
     public enum REOCCURENCE_TYPES { MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS }
 
 }
