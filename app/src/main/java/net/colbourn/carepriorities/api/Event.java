@@ -1,9 +1,10 @@
 package net.colbourn.carepriorities.api;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public interface Event {
+public interface Event extends Serializable {
 
     public Date getTime();
 

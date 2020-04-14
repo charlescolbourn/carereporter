@@ -50,19 +50,35 @@ public class ViewEditEvent extends Activity {
     private List<EventType> eventTypes;
     private EventType selectedEventType;
     private Calendar eventDate = Calendar.getInstance();
+    private Event selectedEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary_entry_edit);
         eventProvider = new LocalDatabaseEventProvider();
+        selectedEvent = (Event) getIntent().getSerializableExtra("event");
+        Log.v(ViewEditEvent.class.getName(),"Viewing event " + selectedEvent.getName());
+        if (selectedEvent == null) {
+            setContentView(R.layout.diary_entry_edit);
+            populateReoccurenceSelector();
+            initialiseEventTypeSelector();
+            initialiseDatePicker();
+            initialiseTimePicker();
+            initialiseButtons();
+        }
+        else {
+            setContentView(R.layout.diary_entry_view);
+            populateExistingView();
+        }
 
-        populateReoccurenceSelector();
-        initialiseEventTypeSelector();
-        initialiseDatePicker();
-        initialiseTimePicker();
-        initialiseButtons();
 
+
+    }
+
+    private void populateExistingView() {
+        ((TextView) findViewById(R.id.eventNameView)).setText(selectedEvent.getName());
+        setIcon( ((ImageView) findViewById(R.id.eventIconView)), selectedEvent.getIcon());
     }
 
 
@@ -217,13 +233,7 @@ public class ViewEditEvent extends Activity {
                 save();
             }
         });
-        Button cancel = findViewById(R.id.editEventCancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancel();
-            }
-        });
+
     }
 
 

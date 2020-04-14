@@ -20,10 +20,14 @@ import net.colbourn.carepriorities.api.Person;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 import net.colbourn.carepriorities.utils.ImageUtils;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class ViewDiary extends Activity {
     private enum ViewType { HOURLY, DAILY, WEEKLY, LIST };
@@ -86,6 +90,14 @@ public class ViewDiary extends Activity {
 
     }
 
+    private void viewType_day() {
+
+    }
+
+    private SimpleAdapter createListOfHours() {
+        return null;
+    }
+
 
     private SimpleAdapter adaptEventToListImageTextView(List<Event> events)
     {
@@ -143,18 +155,24 @@ public class ViewDiary extends Activity {
         viewType_list();
     }
 
-    private void openEvent(Event event) {
-        Intent intent = new Intent(this,ViewEditEvent.class);
-        startActivity(intent);
-    }
-
-
     private void createEvent() {
         Intent intent = new Intent(this,ViewEditEvent.class);
         startActivity(intent);
     }
 
+    private void openEvent(Event event) {
+        Intent intent = new Intent(this,ViewEditEvent.class);
+        intent.putExtra("event", event);
+        startActivity(intent);
+    }
     private String getIconPathForIcon(String iconName) {
         return "file:///android_assets/images/"+iconName;
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.v("SELECTCLIENTVIEW","Refreshing list of clients");
+        showDiary(ViewType.DAILY);
     }
 }
