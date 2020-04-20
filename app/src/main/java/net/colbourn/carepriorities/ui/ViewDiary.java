@@ -20,9 +20,12 @@ import net.colbourn.carepriorities.api.Person;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 import net.colbourn.carepriorities.utils.ImageUtils;
 
+import java.sql.Array;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -91,11 +94,39 @@ public class ViewDiary extends Activity {
     }
 
     private void viewType_day() {
+        List<String> hours = createListOfHours();
+        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(LocalTime.now());
+//        List<Event> daysEvents = getEventsForDateRange(LocalTime.now(), cal.)
+        List<HashMap<String,String>> pList = new ArrayList<>();
+        for (String hour : hours) {
+            HashMap<String,String> hm = new HashMap<>();
+            hm.put("time",hour);
+            pList.add(hm);
 
+        }
+        String[] from = {"time"};
+        int[] to = {R.id.diary_view_hour_time};
+
+        SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), pList, R.layout.diary_hour_list_view, from, to);
+        ListView eventListView = findViewById(R.id.list_of_events);
+        eventListView.setAdapter(adapter);
+        insertIcons(eventListView);
     }
 
-    private SimpleAdapter createListOfHours() {
-        return null;
+    private void insertIcons( ListView eventListView ){
+        for (int i=0; i< eventListView.getAdapter().getCount(); i++) {
+            HashMap<String,String> item = (HashMap<String, String>) eventListView.getAdapter().getItem(i);
+            // get diary items for this time.
+        }
+    }
+
+    private List<String> createListOfHours() {
+        List<String> hours = new ArrayList<>();
+        for (int i=0; i<24; i++) {
+            hours.add(String.format("%02d:00",i));
+        }
+        return hours;
     }
 
 
@@ -148,7 +179,7 @@ public class ViewDiary extends Activity {
     }
 
     private void viewType_daily() {
-        viewType_list();
+        viewType_day();
     }
 
     private void viewType_hourly() {
