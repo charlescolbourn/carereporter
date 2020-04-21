@@ -58,13 +58,6 @@ public class ViewEditClient extends Activity {
                 saveClientDetails();
             }
         });
-        Button cancel = findViewById(R.id.editClientViewCancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               cancelAndExit();
-            }
-        });
     }
 
     protected void cancelAndExit()

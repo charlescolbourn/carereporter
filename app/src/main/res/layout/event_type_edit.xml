@@ -17,19 +17,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/editClientViewSave"
+                android:id="@+id/edit_event_type_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:editable="false"
                 android:text="Save" />
 
-            <Button
-                android:id="@+id/editClientViewCancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel" />
+
         </LinearLayout>
 
         <TableLayout

@@ -58,7 +58,6 @@ public class ViewEditEvent extends Activity {
         setContentView(R.layout.diary_entry_edit);
         eventProvider = new LocalDatabaseEventProvider();
         selectedEvent = (Event) getIntent().getSerializableExtra("event");
-        Log.v(ViewEditEvent.class.getName(),"Viewing event " + selectedEvent.getName());
         if (selectedEvent == null) {
             setContentView(R.layout.diary_entry_edit);
             populateReoccurenceSelector();

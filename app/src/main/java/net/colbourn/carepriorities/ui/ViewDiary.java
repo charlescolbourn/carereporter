@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,8 +23,11 @@ import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvi
 import net.colbourn.carepriorities.utils.ImageUtils;
 
 import java.sql.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -95,9 +100,21 @@ public class ViewDiary extends Activity {
 
     private void viewType_day() {
         List<String> hours = createListOfHours();
-        Calendar cal = Calendar.getInstance();
-//        cal.setTimeInMillis(LocalTime.now());
-//        List<Event> daysEvents = getEventsForDateRange(LocalTime.now(), cal.)
+        List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
+
+//        Calendar today = Calendar.getInstance();
+//        today.set(Calendar.HOUR_OF_DAY, 0);
+//        today.set(Calendar.MINUTE, 0);
+//        today.set(Calendar.SECOND, 0);
+//        today.set(Calendar.MILLISECOND, 0);
+//
+//        Calendar tomorrow = (Calendar) today.clone();
+//// next day
+//
+//        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+//
+//
+//        List<Event> daysEvents = getEventsForDateRange(today, tomorrow);
         List<HashMap<String,String>> pList = new ArrayList<>();
         for (String hour : hours) {
             HashMap<String,String> hm = new HashMap<>();
@@ -111,13 +128,35 @@ public class ViewDiary extends Activity {
         SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), pList, R.layout.diary_hour_list_view, from, to);
         ListView eventListView = findViewById(R.id.list_of_events);
         eventListView.setAdapter(adapter);
-        insertIcons(eventListView);
+        insertIcons(eventListView, events);
     }
 
-    private void insertIcons( ListView eventListView ){
+
+
+    private void insertIcons(ListView eventListView, List<Event> events){
         for (int i=0; i< eventListView.getAdapter().getCount(); i++) {
             HashMap<String,String> item = (HashMap<String, String>) eventListView.getAdapter().getItem(i);
-            // get diary items for this time.
+            int hour = Integer.parseInt(item.get("time").substring(0,2));
+            Log.v(ViewDiary.class.getName(),"Checking " + events.size() + " events");
+            for(Event e : events){
+                Log.v(ViewDiary.class.getName(),"Event " + e.getName());
+                Calendar cal = Calendar.getInstance();
+                // TODO remove
+                if (e.getTime()==null) {
+                    Log.v(ViewDiary.class.getName(),"Time is null for " + e.getName());
+                    continue;
+                }
+
+                cal.setTime(e.getTime());
+                Log.v(ViewDiary.class.getName(),"Hour of event is " + cal.get(Calendar.HOUR) + " and sought hour is " + hour);
+                if (cal.get(Calendar.HOUR)==hour) {
+                    View v = eventListView.getAdapter().getView(i, getLayoutInflater().inflate(R.layout.diary_hour_list_view, null), eventListView);
+                    TextView test = new TextView(this);
+                    test.setText("foo");
+                    ((LinearLayout) v).addView(test);
+                    Log.v(ViewDiary.class.getName(),"Got view " + v.getId());
+                }
+            }
         }
     }
 
