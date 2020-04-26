@@ -20,7 +20,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/diary_content_section" />
+    <include
+        layout="@layout/diary_content_section"
+        android:layout_width="match_parent"
+        android:layout_height="597dp"
+        android:layout_marginTop="@dimen/app_bar_height" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

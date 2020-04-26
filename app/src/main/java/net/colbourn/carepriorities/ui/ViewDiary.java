@@ -2,10 +2,14 @@ package net.colbourn.carepriorities.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -99,66 +103,46 @@ public class ViewDiary extends Activity {
     }
 
     private void viewType_day() {
-        List<String> hours = createListOfHours();
-        List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
-
-//        Calendar today = Calendar.getInstance();
-//        today.set(Calendar.HOUR_OF_DAY, 0);
-//        today.set(Calendar.MINUTE, 0);
-//        today.set(Calendar.SECOND, 0);
-//        today.set(Calendar.MILLISECOND, 0);
-//
-//        Calendar tomorrow = (Calendar) today.clone();
-//// next day
-//
-//        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
-//
-//
-//        List<Event> daysEvents = getEventsForDateRange(today, tomorrow);
-        List<HashMap<String,String>> pList = new ArrayList<>();
-        for (String hour : hours) {
-            HashMap<String,String> hm = new HashMap<>();
-            hm.put("time",hour);
-            pList.add(hm);
-
-        }
-        String[] from = {"time"};
-        int[] to = {R.id.diary_view_hour_time};
-
-        SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), pList, R.layout.diary_hour_list_view, from, to);
+        ArrayAdapter<ViewElementDiaryHour> adapter = new ViewElementDiaryHourAdapter(this.getApplicationContext(), getHourItems());
         ListView eventListView = findViewById(R.id.list_of_events);
         eventListView.setAdapter(adapter);
-        insertIcons(eventListView, events);
+
+//        eventListView.setSelection(); //TODO show hour position of now,but don't SELECT it
+
     }
 
+    private List<ViewElementDiaryHour> getHourItems() {
+        List<String> hours = createListOfHours();
+        List<ViewElementDiaryHour> items = new ArrayList<>();
+        for (String hour : hours) {
+            items.add(new ViewElementDiaryHour(hour, getIconsForHour(Integer.parseInt(hour.substring(0,2)))));
+        }
+        return items;
+    }
 
-
-    private void insertIcons(ListView eventListView, List<Event> events){
-        for (int i=0; i< eventListView.getAdapter().getCount(); i++) {
-            HashMap<String,String> item = (HashMap<String, String>) eventListView.getAdapter().getItem(i);
-            int hour = Integer.parseInt(item.get("time").substring(0,2));
-            Log.v(ViewDiary.class.getName(),"Checking " + events.size() + " events");
-            for(Event e : events){
-                Log.v(ViewDiary.class.getName(),"Event " + e.getName());
-                Calendar cal = Calendar.getInstance();
-                // TODO remove
-                if (e.getTime()==null) {
-                    Log.v(ViewDiary.class.getName(),"Time is null for " + e.getName());
-                    continue;
-                }
-
-                cal.setTime(e.getTime());
-                Log.v(ViewDiary.class.getName(),"Hour of event is " + cal.get(Calendar.HOUR) + " and sought hour is " + hour);
-                if (cal.get(Calendar.HOUR)==hour) {
-                    View v = eventListView.getAdapter().getView(i, getLayoutInflater().inflate(R.layout.diary_hour_list_view, null), eventListView);
-                    TextView test = new TextView(this);
-                    test.setText("foo");
-                    ((LinearLayout) v).addView(test);
-                    Log.v(ViewDiary.class.getName(),"Got view " + v.getId());
-                }
+    private List<Bitmap> getIconsForHour(int hour) {
+        List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
+        List<Bitmap> icons = new ArrayList<>();
+        Log.v(ViewDiary.class.getName(),"Checking for events in hour " + hour);
+        for (Event event : events) {
+            Calendar cal = Calendar.getInstance();
+            if (event.getTime()==null) {
+                continue;
+            }
+            cal.setTime(event.getTime());
+            if (cal.get(Calendar.HOUR)==hour) {
+                Log.v(ViewDiary.class.getName(),"Found event " + event.getName() + " at time " + hour);
+                String path = ImageUtils.cacheIcon(this.getApplicationContext(),event.getIcon());
+                Bitmap iconBitmap = BitmapFactory.decodeFile(path);
+                icons.add(iconBitmap);
             }
         }
+        return icons;
     }
+
+
+
+
 
     private List<String> createListOfHours() {
         List<String> hours = new ArrayList<>();
