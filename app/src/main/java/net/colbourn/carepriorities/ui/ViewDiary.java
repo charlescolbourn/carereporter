@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewManager;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -46,6 +47,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class ViewDiary extends Activity {
+
+    private View currentHourView;
+
     private enum ViewType { HOURLY, DAILY, WEEKLY, LIST };
 
     EventProvider eventProvider;
@@ -239,15 +243,16 @@ public class ViewDiary extends Activity {
 
     private void selectHour(View hourView){
         Log.v(ViewDiary.class.getName(),"Viewing hour " + hourView.toString());
-        // TODO I expected this to toggle the view but it doesn't
-        View expandedView = hourView.findViewById(R.id.diary_view_expanded);
-        if (expandedView == null) {
-            View child = View.inflate(this, R.layout.diary_view_expanded_hour, null);
-            ((LinearLayout) hourView).addView(child);
+        ViewParent lastParent = null;
+        if (currentHourView != null && currentHourView.getParent() != null) {
+            lastParent = currentHourView.getParent();
+            ((ViewManager) currentHourView.getParent()).removeView(currentHourView);
         }
-        else {
-            ((ViewManager)hourView).removeView(expandedView);
+        if (currentHourView==null || lastParent != hourView ) {
+            currentHourView = View.inflate(this, R.layout.diary_view_expanded_hour, null);
+            ((LinearLayout) hourView).addView(currentHourView);
         }
+
     }
 
     @Override
