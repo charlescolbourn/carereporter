@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -55,6 +57,7 @@ public class ViewDiary extends Activity {
     EventProvider eventProvider;
     Person client;
     Date selectedDate = new Date();
+    Map<Integer,List<Event>> eventListByTime = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class ViewDiary extends Activity {
         Log.v(ViewDiary.class.getName(),"Got client with id " + client.getId());
 
         eventProvider = new LocalDatabaseEventProvider();
+        getEventsForDate();
 
         showDiary(ViewType.DAILY);
 
@@ -81,6 +85,18 @@ public class ViewDiary extends Activity {
         });
     }
 
+    private void getEventsForDate() {
+        List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
+        for (Event event : events) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(event.getTime());
+            int hour = cal.get(Calendar.HOUR);
+            if (eventListByTime.get(hour) == null) {
+                eventListByTime.put(hour, new ArrayList<>());
+            }
+            eventListByTime.get(hour).add(event);
+        }
+    }
 
     protected void showDiary(ViewType viewType) {
         switch (viewType) {
@@ -138,9 +154,10 @@ public class ViewDiary extends Activity {
     }
 
     private List<Bitmap> getIconsForHour(int hour) {
-        List<Event> events = eventProvider.getForDateAndClient(selectedDate,client.getId());
+
         List<Bitmap> icons = new ArrayList<>();
         Log.v(ViewDiary.class.getName(),"Checking for events in hour " + hour);
+        List<Event> events = eventListByTime.get(hour) != null ? eventListByTime.get(hour) : new ArrayList<>();
         for (Event event : events) {
             Calendar cal = Calendar.getInstance();
 //            if (event.getTime()==null) {
@@ -171,28 +188,26 @@ public class ViewDiary extends Activity {
     }
 
 
-//    private SimpleAdapter adaptEventToListImageTextView(List<Event> events)
-//    {
-//        List<HashMap<String,String>> pList = new ArrayList<>();
-//        for (Event e: events) {
-//            HashMap<String, String> hm = new HashMap<String, String>();
-//            hm.put("title", e.getName());
-//            hm.put("description", "");
-//            hm.put("time", formatDate(e.getTime()));
-//            Log.v(ViewDiary.class.getName(),"Displaying icon " + e.getIcon());
-//            hm.put("icon", ImageUtils.cacheIcon(this.getApplicationContext(),e.getIcon()));
-//            pList.add(hm);
-//        }
-//
-//        String[] from = {"icon", "title", "description", "time"};
-//        int[] to = {R.id.diary_item_list_view_image,
-//                    R.id.diary_item_list_view_title,
-//                    R.id.diary_item_list_view_description,
-//                    R.id.diary_item_list_view_time};
-//
-//        return new SimpleAdapter(getBaseContext(), pList, R.layout.diary_item_list_view, from, to);
-//
-//    }
+    private SimpleAdapter adaptEventToListImageTextView(List<Event> events)
+    {
+        List<HashMap<String,String>> pList = new ArrayList<>();
+        for (Event e: events) {
+            HashMap<String, String> hm = new HashMap<String, String>();
+            hm.put("title", e.getName());
+            hm.put("description", "");
+            Log.v(ViewDiary.class.getName(),"Displaying icon " + e.getIcon());
+            hm.put("icon", ImageUtils.cacheIcon(this.getApplicationContext(),e.getIcon()));
+            pList.add(hm);
+        }
+
+        String[] from = {"icon", "title", "description", "time"};
+        int[] to = {R.id.diary_item_list_view_image,
+                    R.id.diary_item_list_view_title,
+                    R.id.diary_item_list_view_description,
+                    };
+
+        return new SimpleAdapter(getBaseContext(), pList, R.layout.diary_item_list_view, from, to);
+    }
 
     private String formatDate(Date time) {
         return time != null ? time.toString() : ""; //TOdo
@@ -251,8 +266,32 @@ public class ViewDiary extends Activity {
         if (currentHourView==null || lastParent != hourView ) {
             currentHourView = View.inflate(this, R.layout.diary_view_expanded_hour, null);
             ((LinearLayout) hourView).addView(currentHourView);
+            populateHourView(hourView);
         }
 
+    }
+
+    private void populateHourView(View hourView) {
+
+        String hourString = ((TextView)hourView.findViewById(R.id.diary_view_hour_time)).getText().toString();
+        int hour = Integer.parseInt(hourString.substring(0,2));
+        List<Event> eventList = eventListByTime.get(hour);
+        ((TextView)currentHourView.findViewById(R.id.diary_view_expanded_hour_time)).setText(hourString);
+
+        if (eventList != null) {
+            ListView eventListView = hourView.findViewById(R.id.diary_view_hour_expanded_eventlist);
+            eventListView.setAdapter(adaptEventToListImageTextView(eventList));
+            eventListView.setClickable(true);
+            eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> av, View arg1, int i, long arg3) {
+                    Log.v(ViewDiary.class.getName(), "item at pos " + i);
+                    HashMap<String, String> p = (HashMap<String, String>) eventListView.getItemAtPosition(i);
+                    Log.v(ViewDiary.class.getName(), "Client  " + p.get("listview_title"));
+                    openEvent(eventList.get(i));
+                }
+            });
+        }
     }
 
     @Override

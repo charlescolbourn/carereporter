@@ -21,29 +21,33 @@ import androidx.annotation.NonNull;
 
 public class ViewElementDiaryHourAdapter extends ArrayAdapter<ViewElementDiaryHour> {
 
+
     public ViewElementDiaryHourAdapter(@NonNull Context context, List<ViewElementDiaryHour> elements) {
         super(context, 0, elements);
     }
+
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewElementDiaryHour item = getItem(position);
         if (convertView == null) {
-            Log.v(ViewElementDiaryHourAdapter.class.getName(),"convertView is null here at position " + position);
+            Log.v(ViewElementDiaryHourAdapter.class.getName(), "convertView is null here at position " + position);
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.diary_hour_list_view, parent, false);
-        }
 
-        TextView time = (TextView) convertView.findViewById(R.id.diary_view_hour_time);
-        LinearLayout iconBox = (LinearLayout) convertView.findViewById(R.id.diary_view_hour_icon_space);
-        Log.v(ViewElementDiaryHourAdapter.class.getName(),"Inserting " + item.getIcons().size() + " in time " + item.getTime() + " at position " + position);
+            TextView time = (TextView) convertView.findViewById(R.id.diary_view_hour_time);
+            LinearLayout iconBox = (LinearLayout) convertView.findViewById(R.id.diary_view_hour_icon_space);
+            Log.v(ViewElementDiaryHourAdapter.class.getName(), "Inserting " + item.getIcons().size() + " in time " + item.getTime() + " at position " + position);
 
-        time.setText(item.getTime());
-        for (Bitmap icon : item.getIcons()) {
+            time.setText(item.getTime());
+            for (Bitmap icon : item.getIcons()) {
+                Log.v(ViewElementDiaryHourAdapter.class.getName(), "Adding icon in hour " + position);
+                ImageView iconView = new ImageView(iconBox.getContext());
+                iconView.setImageBitmap(icon);
+                iconBox.addView(iconView);
 
-            ImageView iconView = new ImageView(iconBox.getContext());
-            iconView.setImageBitmap(icon);
-            iconBox.addView(iconView);
-
+            }
         }
         return convertView;
     }

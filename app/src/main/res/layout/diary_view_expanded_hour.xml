@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/diary_view_expanded"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is where the time goes"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="36sp">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    </TextView>
+        <TextView
+            android:id="@+id/diary_view_expanded_hour_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="This is where the time goes" />
+
+        <ListView
+            android:id="@+id/diary_view_hour_expanded_eventlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <!--LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" /-->
+        </ListView>
+    </LinearLayout>
+
 </android.widget.LinearLayout>
