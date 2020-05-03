@@ -96,6 +96,7 @@ public class ViewDiary extends Activity {
             if (eventListByTime.get(hour) == null) {
                 eventListByTime.put(hour, new ArrayList<>());
             }
+            Log.v(ViewDiary.class.getName(),"Adding event to hash at " + hour);
             eventListByTime.get(hour).add(event);
         }
     }
@@ -196,7 +197,8 @@ public class ViewDiary extends Activity {
         for (Event e: events) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("title", e.getName());
-            hm.put("description", "");
+            hm.put("time", e.getTime().toString());
+            hm.put("description", "badger");
             Log.v(ViewDiary.class.getName(),"Displaying icon " + e.getIcon());
             hm.put("icon", ImageUtils.cacheIcon(this.getApplicationContext(),e.getIcon()));
             pList.add(hm);
@@ -205,6 +207,7 @@ public class ViewDiary extends Activity {
         String[] from = {"icon", "title", "description", "time"};
         int[] to = {R.id.diary_item_list_view_image,
                     R.id.diary_item_list_view_title,
+                    R.id.diary_item_list_view_time,
                     R.id.diary_item_list_view_description,
                     };
 
@@ -287,6 +290,7 @@ public class ViewDiary extends Activity {
         if (eventList != null) {
             ListView eventListView = hourView.findViewById(R.id.diary_view_hour_expanded_eventlist);
             eventListView.setAdapter(adaptEventToListImageTextView(eventList));
+            Log.v(ViewDiary.class.getName(),"EventList adapter is " + eventListView.getAdapter().getCount());
             eventListView.setClickable(true);
             eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
