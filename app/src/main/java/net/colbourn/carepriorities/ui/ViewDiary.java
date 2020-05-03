@@ -48,6 +48,8 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public class ViewDiary extends Activity {
 
     private View currentHourView;
@@ -258,14 +260,18 @@ public class ViewDiary extends Activity {
 
     private void selectHour(View hourView){
         Log.v(ViewDiary.class.getName(),"Viewing hour " + hourView.toString());
+
         ViewParent lastParent = null;
         if (currentHourView != null && currentHourView.getParent() != null) {
             lastParent = currentHourView.getParent();
+            ((View)lastParent).findViewById(R.id.diary_view_hour_icon_space).setVisibility(View.VISIBLE);
             ((ViewManager) currentHourView.getParent()).removeView(currentHourView);
+
         }
         if (currentHourView==null || lastParent != hourView ) {
             currentHourView = View.inflate(this, R.layout.diary_view_expanded_hour, null);
             ((LinearLayout) hourView).addView(currentHourView);
+            hourView.findViewById(R.id.diary_view_hour_icon_space).setVisibility(View.GONE);
             populateHourView(hourView);
         }
 
@@ -276,7 +282,7 @@ public class ViewDiary extends Activity {
         String hourString = ((TextView)hourView.findViewById(R.id.diary_view_hour_time)).getText().toString();
         int hour = Integer.parseInt(hourString.substring(0,2));
         List<Event> eventList = eventListByTime.get(hour);
-        ((TextView)currentHourView.findViewById(R.id.diary_view_expanded_hour_time)).setText(hourString);
+
 
         if (eventList != null) {
             ListView eventListView = hourView.findViewById(R.id.diary_view_hour_expanded_eventlist);
