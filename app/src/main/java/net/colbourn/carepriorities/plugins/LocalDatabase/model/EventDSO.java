@@ -26,6 +26,7 @@ public class EventDSO implements Serializable
     private String name;
     private Long eventDuration;
     private String icon;
+    private String description;
 
     private ToOne<ReoccurrenceDSO> reoccurrenceDSO;
 
@@ -83,5 +84,13 @@ public class EventDSO implements Serializable
 
     public void setReoccurrenceDSO(ReoccurrenceDSO reoccurrenceDSO) {
         this.reoccurrenceDSO.setTarget(reoccurrenceDSO);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

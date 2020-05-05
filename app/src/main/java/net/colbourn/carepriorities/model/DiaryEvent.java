@@ -23,6 +23,7 @@ public class DiaryEvent implements Event
     private Long eventDuration;
     private Reoccurrence reoccurrence;
     private String icon;
+    private String description;
 
     public DiaryEvent() {
     }
@@ -74,6 +75,16 @@ public class DiaryEvent implements Event
     public enum REOCCURENCE_TYPES { MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS }
 
     public void setIcon( String icon ) { this.icon = icon; }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
 
     public String getIcon() { return this.icon; }
 

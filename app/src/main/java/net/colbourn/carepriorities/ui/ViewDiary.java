@@ -33,9 +33,11 @@ import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvi
 import net.colbourn.carepriorities.utils.ImageUtils;
 
 import java.sql.Array;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
@@ -167,6 +169,7 @@ public class ViewDiary extends Activity {
 //                continue;
 //            }
             cal.setTime(event.getTime());
+
             if (cal.get(Calendar.HOUR)==hour) {
                 Log.v(ViewDiary.class.getName(),"Found event " + event.getName() + " at time " + hour);
                 String path = ImageUtils.cacheIcon(this.getApplicationContext(),event.getIcon());
@@ -197,8 +200,8 @@ public class ViewDiary extends Activity {
         for (Event e: events) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("title", e.getName());
-            hm.put("time", e.getTime().toString());
-            hm.put("description", "badger");
+            hm.put("time", formatDate(e.getTime()));
+            hm.put("description", e.getDescription());
             Log.v(ViewDiary.class.getName(),"Displaying icon " + e.getIcon());
             hm.put("icon", ImageUtils.cacheIcon(this.getApplicationContext(),e.getIcon()));
             pList.add(hm);
@@ -215,7 +218,9 @@ public class ViewDiary extends Activity {
     }
 
     private String formatDate(Date time) {
-        return time != null ? time.toString() : ""; //TOdo
+        if (time==null) { return ""; } // this shouldn't happen once bugs are fixed TODO
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(time);
     }
 
 

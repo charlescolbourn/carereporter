@@ -30,6 +30,10 @@ public interface Event extends Serializable {
 
     public void setIcon(String icon);
 
+    public void setDescription(String description);
+
+    public String getDescription();
+
     public enum REOCCURENCE_TYPES { MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS }
 
 }

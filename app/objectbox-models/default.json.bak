@@ -54,7 +54,7 @@
     },
     {
       "id": "3:2561873754943258256",
-      "lastPropertyId": "8:8927798475936478567",
+      "lastPropertyId": "9:1973638286682626530",
       "name": "EventDSO",
       "properties": [
         {
@@ -92,6 +92,11 @@
           "type": 11,
           "flags": 1548,
           "relationTarget": "ReoccurrenceDSO"
+        },
+        {
+          "id": "9:1973638286682626530",
+          "name": "icon",
+          "type": 9
         }
       ],
       "relations": []

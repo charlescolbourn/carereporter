@@ -31,7 +31,9 @@ public class ViewElementDiaryHourAdapter extends ArrayAdapter<ViewElementDiaryHo
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.v(ViewElementDiaryHourAdapter.class.getName(),String.format("Position called is %d",position));
         ViewElementDiaryHour item = getItem(position);
+        Log.v(ViewElementDiaryHourAdapter.class.getName(),"Time of item is " + item.getTime());
         if (convertView == null) {
             Log.v(ViewElementDiaryHourAdapter.class.getName(), "convertView is null here at position " + position);
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.diary_hour_list_view, parent, false);
