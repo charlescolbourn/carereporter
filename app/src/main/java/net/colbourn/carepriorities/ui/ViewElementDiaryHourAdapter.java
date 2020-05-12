@@ -15,12 +15,15 @@ import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.model.DiaryEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
 public class ViewElementDiaryHourAdapter extends ArrayAdapter<ViewElementDiaryHour> {
 
+    private Map<Integer,View> hourViews = new HashMap<>();
 
     public ViewElementDiaryHourAdapter(@NonNull Context context, List<ViewElementDiaryHour> elements) {
         super(context, 0, elements);
@@ -31,26 +34,31 @@ public class ViewElementDiaryHourAdapter extends ArrayAdapter<ViewElementDiaryHo
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.v(ViewElementDiaryHourAdapter.class.getName(),String.format("Position called is %d",position));
+        Log.v(ViewElementDiaryHourAdapter.class.getName(), String.format("Position called is %d", position));
+        return hourViews.get(position) != null ? hourViews.get(position) : createNewHourView(position, parent);
+    }
+
+    private View createNewHourView(int position, ViewGroup parent) {
         ViewElementDiaryHour item = getItem(position);
-        Log.v(ViewElementDiaryHourAdapter.class.getName(),"Time of item is " + item.getTime());
-        if (convertView == null) {
-            Log.v(ViewElementDiaryHourAdapter.class.getName(), "convertView is null here at position " + position);
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.diary_hour_list_view, parent, false);
+        Log.v(ViewElementDiaryHourAdapter.class.getName(), "Time of item is " + item.getTime());
 
-            TextView time = (TextView) convertView.findViewById(R.id.diary_view_hour_time);
-            LinearLayout iconBox = (LinearLayout) convertView.findViewById(R.id.diary_view_hour_icon_space);
-            Log.v(ViewElementDiaryHourAdapter.class.getName(), "Inserting " + item.getIcons().size() + " in time " + item.getTime() + " at position " + position);
+        Log.v(ViewElementDiaryHourAdapter.class.getName(), "convertView is null here at position " + position);
+        View hourView = LayoutInflater.from(getContext()).inflate(R.layout.diary_hour_list_view, parent, false);
 
-            time.setText(item.getTime());
-            for (Bitmap icon : item.getIcons()) {
-                Log.v(ViewElementDiaryHourAdapter.class.getName(), "Adding icon in hour " + position);
-                ImageView iconView = new ImageView(iconBox.getContext());
-                iconView.setImageBitmap(icon);
-                iconBox.addView(iconView);
+        TextView time = (TextView) hourView.findViewById(R.id.diary_view_hour_time);
+        LinearLayout iconBox = (LinearLayout) hourView.findViewById(R.id.diary_view_hour_icon_space);
+        Log.v(ViewElementDiaryHourAdapter.class.getName(), "Inserting " + item.getIcons().size() + " in time " + item.getTime() + " at position " + position);
 
-            }
+        time.setText(item.getTime());
+        for (Bitmap icon : item.getIcons()) {
+            Log.v(ViewElementDiaryHourAdapter.class.getName(), "Adding icon in hour " + position);
+            ImageView iconView = new ImageView(iconBox.getContext());
+            iconView.setImageBitmap(icon);
+            iconBox.addView(iconView);
+
         }
-        return convertView;
+
+        hourViews.put(position,hourView);
+        return hourView;
     }
 }
