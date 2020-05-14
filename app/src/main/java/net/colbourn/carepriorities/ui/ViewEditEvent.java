@@ -22,21 +22,13 @@ import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.EventType;
-import net.colbourn.carepriorities.api.Reoccurrence;
 import net.colbourn.carepriorities.model.DiaryEvent;
 import net.colbourn.carepriorities.model.EventReoccurrence;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 import net.colbourn.carepriorities.utils.ImageUtils;
 import net.colbourn.carepriorities.utils.JSONUtils;
-
 import org.json.JSONException;
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,12 +70,14 @@ public class ViewEditEvent extends Activity {
     private void populateExistingView() {
         ((TextView) findViewById(R.id.eventNameView)).setText(selectedEvent.getName());
         setIcon( ((ImageView) findViewById(R.id.eventIconView)), selectedEvent.getIcon());
+//        ((TextView) findViewById(R.id.eventReoccurrenceView)).setText(selectedEvent.getReoccurrence().getPeriodicity().name());
+        ((TextView) findViewById(R.id.eventTypeView)).setText(selectedEvent.getEventType().getName());
     }
 
 
     private void populateReoccurenceSelector() {
         List<String> spinnerArray =  new ArrayList<String>();
-        for (Reoccurrence.PeriodicityOption option : EventReoccurrence.PeriodicityOption.values()) {
+        for (EventReoccurrence option : EventReoccurrence.values()) {
             spinnerArray.add(option.name());
         }
 

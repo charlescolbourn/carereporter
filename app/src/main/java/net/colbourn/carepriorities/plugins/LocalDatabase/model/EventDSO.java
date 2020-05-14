@@ -6,12 +6,16 @@
  **************************************************************************************************/
 package net.colbourn.carepriorities.plugins.LocalDatabase.model;
 
+import net.colbourn.carepriorities.model.EventReoccurrence;
+
 import java.io.Serializable;
 
 import java.util.Date;
 
+import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.converter.PropertyConverter;
 import io.objectbox.relation.ToOne;
 
 @Entity
@@ -28,7 +32,20 @@ public class EventDSO implements Serializable
     private String icon;
     private String description;
 
-    private ToOne<ReoccurrenceDSO> reoccurrenceDSO;
+    @Convert(converter = ReoccurrenceConverter.class, dbType = String.class)
+    private EventReoccurrence reoccurrence;
+
+
+    public EventReoccurrence getReoccurrence() {
+        return reoccurrence;
+    }
+
+    public void setReoccurrence(EventReoccurrence reoccurrence) {
+        this.reoccurrence = reoccurrence;
+    }
+
+
+;
 
 
     //icon (cached & transient?)
@@ -78,19 +95,24 @@ public class EventDSO implements Serializable
     public String getIcon () { return this.icon; }
 
 
-    public ToOne<ReoccurrenceDSO> getReoccurrenceDSO() {
-        return reoccurrenceDSO;
-    }
-
-    public void setReoccurrenceDSO(ReoccurrenceDSO reoccurrenceDSO) {
-        this.reoccurrenceDSO.setTarget(reoccurrenceDSO);
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static class ReoccurrenceConverter implements PropertyConverter<EventReoccurrence, String> {
+
+        @Override
+        public EventReoccurrence convertToEntityProperty(String databaseValue) {
+            return databaseValue != null ? EventReoccurrence.valueOf(databaseValue) : EventReoccurrence.SINGLE_EVENT; // bad, remove this when we have clean consistent data TODO
+        }
+
+        @Override
+        public String convertToDatabaseValue(EventReoccurrence entityProperty) {
+            return entityProperty.name();
+        }
     }
 }

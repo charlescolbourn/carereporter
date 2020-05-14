@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
@@ -293,21 +294,29 @@ public class ViewDiary extends Activity {
 
 
         if (eventList != null) {
-            ListView eventListView = hourView.findViewById(R.id.diary_view_hour_expanded_eventlist);
-            eventListView.setAdapter(adaptEventToListImageTextView(eventList));
-            Log.v(ViewDiary.class.getName(),"EventList adapter is " + eventListView.getAdapter().getCount());
-            eventListView.setClickable(true);
-            eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> av, View arg1, int i, long arg3) {
-                    Log.v(ViewDiary.class.getName(), "item at pos " + i);
-                    HashMap<String, String> p = (HashMap<String, String>) eventListView.getItemAtPosition(i);
-                    Log.v(ViewDiary.class.getName(), "Client  " + p.get("listview_title"));
-                    openEvent(eventList.get(i));
-                }
-            });
+            populateEventListExpanded(hourView, eventList);
         }
     }
+
+    private void populateEventListExpanded(View hourView, List<Event> eventList) {
+        LinearLayout listLayout = hourView.findViewById(R.id.diary_view_hour_expanded_eventlist);
+        for (Event event : eventList) {
+            populateExpandedRow(listLayout,event);
+        }
+    }
+
+    private void populateExpandedRow(LinearLayout listLayout, Event event) {
+        View eventView = View.inflate(this, R.layout.diary_item_list_view, null);
+        //icon time title description
+        String path = ImageUtils.cacheIcon(this.getApplicationContext(),event.getIcon()); //TODO this shouldn't cache the icon again
+        Bitmap iconBitmap = BitmapFactory.decodeFile(path);
+        ((ImageView) eventView.findViewById(R.id.diary_item_list_view_icon)).setImageBitmap(iconBitmap);
+        ((TextView) eventView.findViewById(R.id.diary_item_list_view_title)).setText(event.getDescription());
+        ((TextView) eventView.findViewById(R.id.diary_item_list_view_time)).setText(event.getTime().toString());
+        listLayout.addView(eventView);
+    }
+
+
 
     @Override
     public void onRestart() {

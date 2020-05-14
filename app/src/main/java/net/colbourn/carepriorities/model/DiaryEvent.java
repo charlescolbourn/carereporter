@@ -9,7 +9,6 @@ package net.colbourn.carepriorities.model;
 
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.EventType;
-import net.colbourn.carepriorities.api.Reoccurrence;
 
 import java.util.Date;
 
@@ -21,7 +20,7 @@ public class DiaryEvent implements Event
     private EventType eventType;
     private String name;
     private Long eventDuration;
-    private Reoccurrence reoccurrence;
+    private EventReoccurrence reoccurrence;
     private String icon;
     private String description;
 
@@ -64,13 +63,17 @@ public class DiaryEvent implements Event
         this.eventDuration = eventDuration;
     }
 
-    public Reoccurrence getReoccurrence() {
-        return reoccurrence;
+    @Override
+    public EventReoccurrence getReoccurrence() {
+        return this.reoccurrence;
     }
 
-    public void setReoccurrence(Reoccurrence reoccurence) {
-        this.reoccurrence = reoccurence;
+
+    @Override
+    public void setReoccurrence(EventReoccurrence reoccurrence) {
+        this.reoccurrence = reoccurrence;
     }
+
 
     public enum REOCCURENCE_TYPES { MINUTES, HOURS, DAYS, WEEKS, MONTHS, YEARS }
 

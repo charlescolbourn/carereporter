@@ -54,7 +54,7 @@
     },
     {
       "id": "3:2561873754943258256",
-      "lastPropertyId": "10:8441195837984169697",
+      "lastPropertyId": "11:633382234125719146",
       "name": "EventDSO",
       "properties": [
         {
@@ -86,14 +86,6 @@
           "flags": 1
         },
         {
-          "id": "8:8927798475936478567",
-          "name": "reoccurrenceDSOId",
-          "indexId": "1:2658345519897717607",
-          "type": 11,
-          "flags": 1548,
-          "relationTarget": "ReoccurrenceDSO"
-        },
-        {
           "id": "9:1973638286682626530",
           "name": "icon",
           "type": 9
@@ -102,26 +94,11 @@
           "id": "10:8441195837984169697",
           "name": "description",
           "type": 9
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "4:2529694614893770544",
-      "lastPropertyId": "2:8965215332200078336",
-      "name": "ReoccurrenceDSO",
-      "properties": [
-        {
-          "id": "1:6709891607749780996",
-          "name": "id",
-          "type": 6,
-          "flags": 1
         },
         {
-          "id": "2:8965215332200078336",
-          "name": "interval",
-          "type": 5,
-          "flags": 4
+          "id": "11:633382234125719146",
+          "name": "reoccurrence",
+          "type": 9
         }
       ],
       "relations": []
@@ -133,11 +110,18 @@
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
-  "retiredIndexUids": [],
+  "retiredEntityUids": [
+    2529694614893770544
+  ],
+  "retiredIndexUids": [
+    2658345519897717607
+  ],
   "retiredPropertyUids": [
     2745050523150803951,
-    2973469645845764535
+    2973469645845764535,
+    6709891607749780996,
+    8965215332200078336,
+    8927798475936478567
   ],
   "retiredRelationUids": [],
   "version": 1

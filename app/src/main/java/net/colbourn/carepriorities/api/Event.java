@@ -1,6 +1,8 @@
 package net.colbourn.carepriorities.api;
 
 
+import net.colbourn.carepriorities.model.EventReoccurrence;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,9 +24,9 @@ public interface Event extends Serializable {
 
     public void setEventDuration(Long eventDuration);
 
-    public Reoccurrence getReoccurrence();
+    public EventReoccurrence getReoccurrence();
 
-    public void setReoccurrence(Reoccurrence reoccurence);
+    public void setReoccurrence(EventReoccurrence reoccurence);
 
     String getIcon();
 
