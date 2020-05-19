@@ -1,18 +1,12 @@
 package net.colbourn.carepriorities.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.view.ViewParent;
 import android.widget.AdapterView;
@@ -30,28 +24,17 @@ import net.colbourn.carepriorities.R;
 import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.Event;
 import net.colbourn.carepriorities.api.Person;
+import net.colbourn.carepriorities.plugins.LocalDatabase.JSONEventTypeProvider;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 import net.colbourn.carepriorities.utils.ImageUtils;
 
-import java.sql.Array;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewDiary extends Activity {
 
@@ -76,6 +59,7 @@ public class ViewDiary extends Activity {
         Log.v(ViewDiary.class.getName(),"Got client with id " + client.getId());
 
         eventProvider = new LocalDatabaseEventProvider();
+        JSONEventTypeProvider.getEventTypes(this); // initialise the eventtypes cache
         getEventsForDate();
 
         showDiary(ViewType.DAILY);
@@ -160,7 +144,7 @@ public class ViewDiary extends Activity {
     }
 
     private List<Bitmap> getIconsForHour(int hour) {
-
+        // todo make this post hoc and asynchronous
         List<Bitmap> icons = new ArrayList<>();
         Log.v(ViewDiary.class.getName(),"Checking for events in hour " + hour);
         List<Event> events = eventListByTime.get(hour) != null ? eventListByTime.get(hour) : new ArrayList<>();
@@ -201,7 +185,7 @@ public class ViewDiary extends Activity {
         for (Event e: events) {
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("title", e.getName());
-            hm.put("time", formatDate(e.getTime()));
+            hm.put("time", formatDateTime(e.getTime()));
             hm.put("description", e.getDescription());
             Log.v(ViewDiary.class.getName(),"Displaying icon " + e.getIcon());
             hm.put("icon", ImageUtils.cacheIcon(this.getApplicationContext(),e.getIcon()));
@@ -209,7 +193,7 @@ public class ViewDiary extends Activity {
         }
 
         String[] from = {"icon", "title", "description", "time"};
-        int[] to = {R.id.diary_item_list_view_image,
+        int[] to = {R.id.diary_item_list_view_icon,
                     R.id.diary_item_list_view_title,
                     R.id.diary_item_list_view_time,
                     R.id.diary_item_list_view_description,
@@ -218,7 +202,7 @@ public class ViewDiary extends Activity {
         return new SimpleAdapter(getBaseContext(), pList, R.layout.diary_item_list_view, from, to);
     }
 
-    private String formatDate(Date time) {
+    private String formatDateTime(Date time) {
         if (time==null) { return ""; } // this shouldn't happen once bugs are fixed TODO
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         return format.format(time);
@@ -311,9 +295,17 @@ public class ViewDiary extends Activity {
         String path = ImageUtils.cacheIcon(this.getApplicationContext(),event.getIcon()); //TODO this shouldn't cache the icon again
         Bitmap iconBitmap = BitmapFactory.decodeFile(path);
         ((ImageView) eventView.findViewById(R.id.diary_item_list_view_icon)).setImageBitmap(iconBitmap);
-        ((TextView) eventView.findViewById(R.id.diary_item_list_view_title)).setText(event.getDescription());
-        ((TextView) eventView.findViewById(R.id.diary_item_list_view_time)).setText(event.getTime().toString());
+        ((TextView) eventView.findViewById(R.id.diary_item_list_view_title)).setText(event.getName());
+        ((TextView) eventView.findViewById(R.id.diary_item_list_view_description)).setText(event.getDescription());
+        ((TextView) eventView.findViewById(R.id.diary_item_list_view_time)).setText(formatDateTime(event.getTime()));
         listLayout.addView(eventView);
+        eventView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v(ViewDiary.class.getName(),"Event is " + event.getName());
+                openEvent(event);
+            }
+        });
     }
 
 

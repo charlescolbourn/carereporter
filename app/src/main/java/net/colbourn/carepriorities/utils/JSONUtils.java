@@ -3,6 +3,7 @@ package net.colbourn.carepriorities.utils;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.JsonReader;
+import android.util.Log;
 
 import net.colbourn.carepriorities.api.EventType;
 import net.colbourn.carepriorities.model.DiaryEventType;
@@ -23,20 +24,28 @@ import java.util.List;
 
 public class JSONUtils {
 
-    public static List<EventType> getListOfEventTypes(Context context, String filename) throws IOException, JSONException {
+    public static List<EventType> getListOfEventTypes(Context context, String filename)  {
         List<EventType> eventTypes = new ArrayList<>();
-        JSONObject parentobj = new JSONObject(readFileToString(context,filename));
-        JSONArray eventTypesJson = parentobj.getJSONArray("EventTypes");
+        try {
+            JSONObject parentobj = new JSONObject(readFileToString(context, filename));
+            JSONArray eventTypesJson = parentobj.getJSONArray("EventTypes");
 
-        for (int i=0; i<eventTypesJson.length(); i++) {
-            EventType e = new DiaryEventType();
-            JSONObject ob = eventTypesJson.getJSONObject(i);
-            e.setName(ob.getString("name"));
-            e.setDefaultDuration(ob.getInt("defaultDuration"));
-            e.setDefaultIcon(ob.getString("defaultIcon"));
+            for (int i = 0; i < eventTypesJson.length(); i++) {
+                EventType e = new DiaryEventType();
+                JSONObject ob = eventTypesJson.getJSONObject(i);
+                e.setId(ob.getLong("id"));
+                e.setName(ob.getString("name"));
+                e.setDefaultDuration(ob.getInt("defaultDuration"));
+                e.setDefaultIcon(ob.getString("defaultIcon"));
 
-            eventTypes.add(e);
+                eventTypes.add(e);
+            }
+        } catch (IOException e) {
+            Log.v(JSONUtils.class.getName(),"Can't read built in events",e);
+        } catch (JSONException e) {
+            Log.v(JSONUtils.class.getName(),"Can't read built in events",e);
         }
+
         return eventTypes;
     }
 

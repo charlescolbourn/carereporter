@@ -24,6 +24,7 @@ import net.colbourn.carepriorities.api.EventProvider;
 import net.colbourn.carepriorities.api.EventType;
 import net.colbourn.carepriorities.model.DiaryEvent;
 import net.colbourn.carepriorities.model.EventReoccurrence;
+import net.colbourn.carepriorities.plugins.LocalDatabase.JSONEventTypeProvider;
 import net.colbourn.carepriorities.plugins.LocalDatabase.LocalDatabaseEventProvider;
 import net.colbourn.carepriorities.utils.ImageUtils;
 import net.colbourn.carepriorities.utils.JSONUtils;
@@ -38,11 +39,10 @@ public class ViewEditEvent extends Activity {
 
 
     private EventProvider eventProvider;
-    private static String EventTypeFilename = "EventTypes.json";
-    private List<EventType> eventTypes;
     private EventType selectedEventType;
     private Calendar eventDate = Calendar.getInstance();
     private Event selectedEvent;
+    private List<EventType> eventTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class ViewEditEvent extends Activity {
     private void populateExistingView() {
         ((TextView) findViewById(R.id.eventNameView)).setText(selectedEvent.getName());
         setIcon( ((ImageView) findViewById(R.id.eventIconView)), selectedEvent.getIcon());
-//        ((TextView) findViewById(R.id.eventReoccurrenceView)).setText(selectedEvent.getReoccurrence().getPeriodicity().name());
+        ((TextView) findViewById(R.id.eventReoccurrenceView)).setText(selectedEvent.getReoccurrence().name());
         ((TextView) findViewById(R.id.eventTypeView)).setText(selectedEvent.getEventType().getName());
     }
 
@@ -131,15 +131,7 @@ public class ViewEditEvent extends Activity {
 
     private List<String> getEventTypeNames() {
         List<String> eventTypeNameList = new ArrayList<>();
-        if (eventTypes==null) {
-            try {
-                eventTypes = JSONUtils.getListOfEventTypes(this, EventTypeFilename);
-            } catch (IOException e) {
-                Log.e(ViewEditEvent.class.getName(), "Can't get built in event types", e);
-            } catch (JSONException e) {
-                Log.e(ViewEditEvent.class.getName(), "Can't get built in event types", e);
-            }
-        }
+        eventTypes = JSONEventTypeProvider.getEventTypes(this);
 
         if (eventTypes != null) {
             for (EventType e : eventTypes) {

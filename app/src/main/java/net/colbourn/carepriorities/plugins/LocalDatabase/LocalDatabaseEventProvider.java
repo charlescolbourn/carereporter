@@ -58,6 +58,9 @@ public class LocalDatabaseEventProvider implements EventProvider {
         event.setIcon(eventDSO.getIcon());
         event.setTime(eventDSO.getTime());
         event.setDescription(eventDSO.getDescription());
+        Log.v(LocalDatabaseEventProvider.class.getName(),"Id of eventtype is " + eventDSO.getEventType());
+        event.setEventType(JSONEventTypeProvider.getEventTypeFromId(eventDSO.getEventType()));
+        event.setReoccurrence(eventDSO.getReoccurrence());
 //        event.setPhoto(clientDSO.getPhoto());
         return event;
     }
@@ -71,7 +74,7 @@ public class LocalDatabaseEventProvider implements EventProvider {
         dso.setTime(event.getTime());
         dso.setDescription(event.getDescription());
         //TODO sort out reoccurence
-
+        dso.setReoccurrence(event.getReoccurrence());
 //        dso.setPhoto(client.getPhoto());
         return dso;
     }

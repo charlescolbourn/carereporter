@@ -3,27 +3,10 @@
     android:id="@+id/diary_item_list_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="7dp">
 
-    <RelativeLayout
-        android:layout_width="0dip"
-        android:layout_weight="0.20"
-        android:layout_height="fill_parent">
-    <ImageView
-        android:id="@+id/diary_item_list_view_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:padding="10dp" />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="0dip"
-        android:layout_weight="0.75"
-        android:layout_height="fill_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,5 +39,5 @@
             android:textSize="12sp" />
 
     </LinearLayout>
-    </RelativeLayout>
+
 </LinearLayout>

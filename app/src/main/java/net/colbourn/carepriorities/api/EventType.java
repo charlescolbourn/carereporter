@@ -4,6 +4,8 @@ public interface EventType {
 
     long getId();
 
+    void setId(long id);
+
     void setParentType(EventType eventType);
 
     EventType getParentType();

@@ -2,6 +2,7 @@
   "EventTypes": [
     {
       "name": "Medication",
+      "id": 1,
       "defaultFrequency": "Daily",
       "defaultIcon": "schedule_black.png",
       "defaultDuration": 5
@@ -9,6 +10,7 @@
     },
     {
       "name": "Coffee",
+      "id": 2,
       "defaultFrequency": "Once",
       "defaultIcon": "cafe_black.png",
       "defaultDuration": 30
