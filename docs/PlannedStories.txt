@@ -47,3 +47,8 @@ view: edit a clients details
 connectivity: post events to a facebook page
 
 event should contain a freetext note (defaults from event type) and List<Photo> to upload to feed
+
+work out algorithm for checking backwards if necessary for recurring events. Possibly:
+    always add this one and the next one
+    each time an event is populated into the view add the next one (or check it's there) async
+    if no events for today get the last event, check its recurrence, then go back one of that interval and check for others in between

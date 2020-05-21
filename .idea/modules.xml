@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CarePrioritiesRewrite.iml" filepath="$PROJECT_DIR$/CarePrioritiesRewrite.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DesktopObjectBoxDb/DesktopObjectBoxDb.iml" filepath="$PROJECT_DIR$/DesktopObjectBoxDb/DesktopObjectBoxDb.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CarePrioritiesRewrite.iml" filepath="$PROJECT_DIR$/CarePrioritiesRewrite.iml" group="CarePrioritiesRewrite" />
+      <module fileurl="file://$PROJECT_DIR$/DesktopObjectBoxDb/DesktopObjectBoxDb.iml" filepath="$PROJECT_DIR$/DesktopObjectBoxDb/DesktopObjectBoxDb.iml" group="CarePrioritiesRewrite/DesktopObjectBoxDb" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="CarePrioritiesRewrite/app" />
     </modules>
   </component>
 </project>

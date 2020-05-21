@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CarePriorities</string>
+    <string name="app_name">CareReporter</string>
     <string name="title_activity_scrolling">SelectClientActivity</string>
     <string name="action_settings">Settings</string>
     <string name="setupapplication">Configure application</string>

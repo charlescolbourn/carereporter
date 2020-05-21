@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.colbourn.carepriorities">
+    package="net.colbourn.carereporter">
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SelectClient"
+            android:name="net.colbourn.carereporter.ui.SelectClient"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,23 +20,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ViewEditClient" />
+        <activity android:name="net.colbourn.carereporter.ui.ViewEditClient" />
         <activity
-            android:name=".ui.ViewDiary"
+            android:name="net.colbourn.carereporter.ui.ViewDiary"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.ViewEditEvent"
+            android:name="net.colbourn.carereporter.ui.ViewEditEvent"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.ViewEditEventType"
+            android:name="net.colbourn.carereporter.ui.ViewEditEventType"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="net.colbourn.carepriorities.android.fileprovider"
+            android:authorities="net.colbourn.carereporter.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

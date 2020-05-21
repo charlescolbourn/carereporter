@@ -5,7 +5,7 @@ apply plugin: 'io.objectbox'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "net.colbourn.carepriorities"
+        applicationId "net.colbourn.carereporter"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
